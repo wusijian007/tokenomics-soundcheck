@@ -1,3 +1,5 @@
+![tokenomics-autopsy](assets/social-preview.png)
+
 # tokenomics-autopsy
 
 **代币死亡螺旋的机制级"尸检" + 一套避坑设计 skill。**

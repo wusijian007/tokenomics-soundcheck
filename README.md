@@ -1,3 +1,5 @@
+![tokenomics-autopsy](assets/social-preview.png)
+
 # tokenomics-autopsy
 
 **Forensic post-mortems of 50+ token death spirals — and a design skill to avoid them.**
@@ -115,6 +117,10 @@ cryptofail/
     ├── case_dataset.py
     └── case_dataset.csv
 ```
+
+## Contributing
+New cases, corrections, simulations, and translations are all welcome — see
+[CONTRIBUTING.md](CONTRIBUTING.md). The bar is correctness and clear mechanism mapping.
 
 ## License
 CC BY 4.0. Community contributions of new cases and models are welcome. Figures are order-of-magnitude estimates; reconcile against live data. Some named cases are in ongoing litigation — defer to final rulings.
