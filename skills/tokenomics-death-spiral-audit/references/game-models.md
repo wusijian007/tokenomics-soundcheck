@@ -108,3 +108,12 @@ Axie/STEPN for the emission variant.
 | pays high APY from inflation/new bonds | 2 (3,3) | to backing | new-money growth |
 | is a self-collateralized algo-stablecoin | 3 Absorbing barrier | to zero | reserve ratio R |
 | has low float / uncapped emission | 4 Supply glut | slow bleed | unlock calendar |
+| rents TVL with points → airdrop (S11) | 4 + 2 hybrid | cliff at TGE/snapshot | organic share, snapshot dates |
+| stacks leverage loops on a derivative (S12) | 1 + 3 hybrid | liquidation cascade | unwind size ÷ market depth |
+
+**Note on the 2023–26 variants.** The two newer anti-patterns are combinations,
+not new games: a points program (S11) is Model 4's supply glut with Model 2's
+new-money dependence, synchronized on a snapshot calendar; a recursive leverage
+loop (S12) is Model 1's run played by liquidation bots, with Model 3's
+absorbing-barrier geometry (unwind size vs real depth) deciding whether it
+cascades. Classify them by their components and read off both watch metrics.

@@ -1,0 +1,8 @@
+name,freeze_date,part,S1_reflexive_collateral,S2_subsidized_demand,S3_uncapped_faucet,S4_inflation_premium,S5_fcfs_redemption,S6_algo_stable,S7_float_fdv,S8_velocity_leak,S9_narrative_only,S10_contagion,S11_mercenary_tvl,S12_leverage_loops,weighted_total_54,engine_flags,structure_flags,band,anchor,predictions
+Ethena USDe,2026-07-02,A,0,1,0,0,1,0,0,0,0,1,1,2,13,0,1,elevated,hard-ish,"P-USDe-1..3"
+Hyperliquid HYPE,2026-07-02,A,0,0,0,0,0,0,1,0,0,1,0,0,3,0,0,low,hard,"P-HYPE-1..2"
+pump.fun PUMP,2026-07-02,A,0,0,0,0,0,0,1,1,1,0,0,0,6,0,0,low,hard (attention-cyclical),"P-PUMP-1"
+USDD,2026-07-02,A,1,0,0,0,1,1,0,0,0,1,0,0,10,0,0,elevated,opaque (scored pessimistically),"P-USDD-1..2"
+Jupiter JUP,2026-07-02,A,0,1,0,0,0,0,2,0,0,0,0,0,7,0,1,low/elevated,hard,"P-JUP-1"
+EigenLayer EIGEN,2026-07-02,B,0,1,0,0,0,0,2,1,0,0,2,0,12,0,2,elevated,medium,"P-EIGEN-1 (in-flight)"
+Ondo ONDO,2026-07-02,B,0,0,0,0,0,0,2,1,1,0,0,0,8,0,1,elevated,medium,"P-ONDO-1 (in-flight)"

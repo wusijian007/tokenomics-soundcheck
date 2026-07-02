@@ -274,6 +274,14 @@ Under sequential service (FCFS), ~51% of scenarios self-fulfill a run, and the l
 ![timeline](simulations/charts/data_timeline_scatter.png)
 Value destruction concentrates most in **high-FDV unlock + algo-stable + CeFi**; collapses cluster at the 2021–22 bull-market top and the 2024–25 PolitiFi/meme wave.
 
+**Scorecard calibration (18 cases: 10 collapses vs 8 stress survivors, see [data/scorecard_calibration.py](data/scorecard_calibration.py))**
+![scorecard separation](simulations/charts/data_scorecard_separation.png)
+Collapses score 12–37 on the v2 scorecard, survivors 1–11; no survivor triggers an engine red line. The borderline pair (ICP 12 collapsed, CRV 11 survived) is resolved by the zero-price anchor test — exactly the second stage of the decision rule.
+
+**Out-of-sample holdout (15 leakage-audited cases never used to build the instrument, see [validation/](validation/README.md))**
+![holdout separation](simulations/charts/data_holdout_separation.png)
+Raw totals overlap in the elevated band out-of-sample — but the engine → structure → anchor decision rule classifies 15/15 held-out outcomes correctly (6 engine spirals, 2 structure bleeds, 7 stress survivors). A frozen [prospective registry](validation/prospective-registry.md) pre-registers falsifiable predictions on living projects for 2027/2028 review — the bias-free tier.
+
 ---
 
 ## 5. Distillation: the top-tier failure Skills (anti-pattern catalog)
@@ -346,9 +354,23 @@ Value destruction concentrates most in **high-FDV unlock + algo-stable + CeFi**;
 ### Skill #10 — Leverage Contagion
 - **Core**: multiple protocols are interlinked at the collateral / market-making / lending layer; one local death spiral spills over into a systemic one.
 - **Structure**: §4.4. Tokens cross-collateralize + concentrated market makers → correlations → 1 in a crisis.
-- **Red flags**: tokens used as collateral for each other; a few affiliated MMs provide most liquidity; shared upstream risk exposure.
+- **Red flags**: tokens used as collateral for each other; a few affiliated MMs provide most liquidity; shared upstream risk exposure; **key-person leverage** (founder/whale loans collateralized by the governance token — CRV, Aug 2023).
 - **Instances**: the Terra → 3AC → Celsius/Voyager → FTX chain reaction.
 - **Antidote**: diversify collateral + stress-test correlations; cap affiliated-MM concentration; isolate risk exposures.
+
+### Skill #11 — Mercenary Points / Rented TVL (2023–26 addendum)
+- **Core**: growth metrics (TVL/users/volume) are *rented* with expected future token payments (points → airdrop); the demand is a forward claim on the token, so it evaporates exactly when the token arrives.
+- **Structure**: a points program forward-sells emissions; expected-airdrop value scales with FDV expectations → reflexive. All farmers share the same snapshot/TGE calendar, so exit is **synchronized**: the airdrop unlock (supply shock) and the mercenary-capital exit (demand cliff) land on the same day. A combination of Model 4 (supply glut) and Model 2 (new-money game).
+- **Red flags**: majority of TVL arrived after the points announcement; capital exits at each snapshot; fee revenue per $ TVL far below peers (parked, not used); escalating multi-season promises; points farmed with leverage (stacks with #12).
+- **Instances**: Blast (TVL cliff after the mid-2024 airdrop), friend.tech (activity and fees collapsed once the reward cycle ended), the 2024 LRT points wave.
+- **Antidote**: vest/lock rewards past TGE; reward **flow** (fees actually paid) rather than **stock** (TVL parked); publish an organic-baseline dashboard (what remains if points stop today); cap airdrop size relative to TGE float.
+
+### Skill #12 — Recursive Leverage Loop (2022–26 addendum)
+- **Core**: a yield-bearing derivative is looped as collateral to borrow its own underlying (deposit stETH → borrow ETH → buy stETH → repeat), or a "stable" carry yield is levered (UST Degenbox, funding-rate carry). The base asset can be sound — the loop adds a liquidation channel that makes the *system* reflexive.
+- **Structure**: with loop LTV `ℓ`, system leverage → `1/(1−ℓ)`. A small discount breaches clustered liquidation thresholds → forced unwinding sells the derivative into thin liquidity → deeper discount → more liquidations. `λ>1` through the liquidation channel. **Critical condition: potential unwind size > real secondary-market depth.**
+- **Red flags**: a large share of the derivative's float sits in leveraged loops; loop APY ≫ base APY; liquidation thresholds clustered in a narrow band; thin DEX depth vs loop size; funding-rate-dependent yield marketed as "stable"; no LTV/supply caps on correlated collateral.
+- **Instances**: the June 2022 stETH loop unwind (amplified Celsius/3AC; stETH itself held — see the skill pack's `survivors.md`), UST Degenbox (Abracadabra), the April 2024 ezETH depeg-liquidation cascade. Watch item: levered funding-carry stables in a prolonged negative-funding regime.
+- **Antidote**: LTV and supply caps for self-referential/correlated collateral; stress-test the full unwind against **actual DEX depth** (not TVL); oracle-deviation circuit breakers; never market carry yield as principal-stable.
 
 ---
 
@@ -368,20 +390,24 @@ Turn chapter 5's Skills into a table you can score at design / due-diligence tim
 | 8 | No value capture; high velocity | #8 | ×1 | |
 | 9 | Pure narrative/celebrity demand, zero cash flow, concentrated | #9 | ×3 | |
 | 10 | Deeply interlinked collateral/MM with other protocols | #10 | ×1 | |
+| 11 | TVL rented via points/airdrop; low organic share | #11 | ×2 | |
+| 12 | Derivative recursively looped as leverage; unwind > depth | #12 | ×2 | |
 
-**Interpretation (max weighted score 46):**
-- **0–6**: low structural death-spiral risk (market risk still applies).
-- **7–15**: reflexive design present; need explicit critical conditions and circuit breakers.
-- **16–28**: high risk; one or two λ>1 engines, hidden in a bull market and exposed in a bear.
-- **≥29**: a textbook death-spiral model; historical peers almost all went to zero.
+**Interpretation (max weighted score 54):**
+- **0–7**: low structural death-spiral risk (market risk still applies).
+- **8–18**: reflexive elements present; need explicit critical conditions and circuit breakers; a *structure* row at 2 → bleed/deleveraging risk — run the zero-price test.
+- **19–33**: high risk; one or more λ>1 engines, hidden in a bull market and exposed in a bear.
+- **≥34**: a textbook death-spiral model; historical peers almost all went to zero.
 
 **How to use**: for any item scoring 2, go straight back to that Skill's "antidote" and redesign; a hit on a ×3-weight item = a red line, highest priority.
+
+> **Operational v2**: the skill pack's [`scorecard.md`](skills/tokenomics-death-spiral-audit/references/scorecard.md) upgrades this to a 12-row / max-54 **measurable** instrument — each row ships a formula, data sources, and 0/1/2 thresholds — back-scored on 18 historical cases (10 collapses vs 8 stress survivors): collapses score 12–37, survivors 1–11, and no survivor triggers an engine red line (`data/scorecard_calibration.py` + separation chart). It is additionally validated **out-of-sample** on 15 leakage-audited held-out cases (decision rule 15/15 correct) and by a frozen prospective registry with falsifiable predictions ([`validation/`](validation/README.md)). The standardized audit procedure is in [`audit-protocol.md`](skills/tokenomics-death-spiral-audit/references/audit-protocol.md); the survivor control group in [`survivors.md`](skills/tokenomics-death-spiral-audit/references/survivors.md).
 
 ---
 
 ## 7. Positive design principles for builders (the mirror of the anti-patterns)
 
-Flip the 10 Skills into "what you should do" and you get the design axioms of healthy tokenomics:
+Flip the 12 Skills into "what you should do" and you get the design axioms of healthy tokenomics:
 
 1. **Decouple fundamentals from price**: ensure `∂(fundamentals)/∂(price) ≈ 0`, i.e., §1's `λ < 1`. This is the master axiom for all others.
 2. **Exogenous, de-correlated collateral**: never use the native token as reserve; stress-test the tail scenario of correlation → 1.
@@ -393,6 +419,10 @@ Flip the 10 Skills into "what you should do" and you get the design axioms of he
 8. **Demand must pass the zero-price test**: "if the token went to zero, would anyone still need it?" If no = unanchored, redesign or don't build.
 9. **Isolate contagion**: limit cross-protocol collateral links and MM concentration.
 10. **Verifiable transparency**: treasury, collateral, unlocks, and team holdings all on-chain readable — opacity itself is the #1 sunspot fuel.
+11. **Rent growth only with vesting**: reward flow (fees paid), not stock (TVL parked); know and publish your organic baseline; size the airdrop so the TGE cliff cannot overwhelm real demand.
+12. **Cap recursion**: leverage loops on your own token/derivative are a systemic short fuse; cap LTV and supply for correlated collateral and stress-test the unwind against real depth.
+
+> The constructive expansion of these axioms — a full 10-step design process with parameter benchmarks and a launch checklist — is the skill pack's [`design-playbook.md`](skills/tokenomics-death-spiral-audit/references/design-playbook.md).
 
 ---
 
@@ -410,3 +440,5 @@ Flip the 10 Skills into "what you should do" and you get the design axioms of he
 | #8 Velocity leak | 9/10/11 reward tokens broadly |
 | #9 Narrative-only | 31 SQUID, 32 SafeMoon, 36 LIBRA, 37/38 MELANIA/TRUMP, 39 HAWK |
 | #10 Leverage contagion | the 1→21 chain, 3AC/Celsius/Voyager |
+| #11 Mercenary points | outside the library (2023–26): Blast, friend.tech, the LRT points wave |
+| #12 Recursive loops | outside the library: stETH unwind (Jun 2022), UST Degenbox, ezETH (Apr 2024) |

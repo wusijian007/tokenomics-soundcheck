@@ -49,7 +49,7 @@ fig.text(0.047, 0.625, "Forensic post-mortems of token death spirals",
 fig.text(0.047, 0.555, "— and a design skill to avoid them.",
          color="#cbd5e1", fontsize=20)
 fig.text(0.047, 0.40,
-         "50+ collapses   ·   10 failure skills   ·   4 game models   ·   reproducible sims",
+         "50+ collapses   ·   12 failure skills   ·   4 game models   ·   reproducible sims",
          color="#7dd3fc", fontsize=15, fontweight="bold")
 fig.text(0.047, 0.30, "λ > 1  →  price becomes the fuel for its own collapse",
          color="#94a3b8", fontsize=14, style="italic")

@@ -5,10 +5,12 @@ description: >
   risk, and guide the design of resilient tokenomics. Use whenever someone is
   designing, reviewing, or doing due diligence on a token model, stablecoin,
   staking/yield mechanism, GameFi/Play-to-Earn economy, points/airdrop program,
-  bonding/treasury (3,3) system, or token unlock/emission schedule — or asks
-  "will this tokenomics work", "is this sustainable", "what's the risk in this
-  token model", or "how do I design tokenomics that won't collapse". Built from
-  forensic analysis of 50+ landmark collapses (Terra, OlympusDAO, Axie, FTX, ICP…).
+  restaking/looped-leverage product, bonding/treasury (3,3) system, or token
+  unlock/emission schedule — or asks "will this tokenomics work", "is this
+  sustainable", "what's the risk in this token model", or "how do I design
+  tokenomics that won't collapse". Built from forensic analysis of 50+ landmark
+  collapses (Terra, OlympusDAO, Axie, FTX, ICP…) and calibrated against a
+  control group of survivors (DAI, USDC, stETH, GMX…).
 license: Open-source (CC BY 4.0). Research / design reference, NOT investment advice.
 ---
 
@@ -36,51 +38,74 @@ and any downward nudge is amplified.
 
 **The master test:** *If the token's price went to zero, would anyone still need
 this token?* If the answer is "no", demand is reflexive and unanchored — redesign
-or walk away.
+or walk away. Every survivor in the control group passes this test; every
+collapse in the case library fails it somewhere (`references/survivors.md`).
 
-## How to use this skill
+## How to use this skill — pick a mode
 
-### Mode A — Auditing an existing/proposed design
-1. **Classify the mechanism.** Read `references/game-models.md` and place the
-   design into one (or more) of the 4 structures: bank run, (3,3) coordination,
-   seigniorage absorbing barrier, unlock/inflation supply glut.
-2. **Run the anti-pattern checklist.** Go through all 10 patterns in
-   `references/anti-patterns.md`. For each, check the *quantitative red flags*.
-3. **Score it.** Fill in the scorecard in `references/scorecard.md` (weighted).
-   Any item scoring 2 on a ×3-weight row is a red line.
-4. **Locate the critical condition.** For each triggered pattern, state the
-   explicit threshold (e.g. reserve ratio `R = M/S → 1`, new-money growth <
-   dilution, sink/faucet < 1, liquidity coverage < redeemable liabilities).
-5. **Prescribe the antidote.** Each anti-pattern ships a concrete design fix.
-6. **Report**: mechanism class → triggered patterns → critical thresholds →
-   score → prioritized fixes.
+### Mode Q — Quick screen (~15 min triage)
+Run the 8-question screen at the top of `references/audit-protocol.md`
+(zero-price test, backing, yield source, redemption coverage, emission cap,
+float/unlocks, holders, rented-vs-looped growth). Output: `PASS` / `CONCERNS` /
+`RED LINE`. Use it before any deeper commitment, or when the user just wants a
+sanity check.
+
+### Mode A — Full audit (due-diligence grade)
+Follow `references/audit-protocol.md` end-to-end:
+1. **Collect inputs** (docs, unlock schedule, contracts, treasury, revenue,
+   TVL history, holders, depth) — the protocol lists sources.
+2. **Draw the mechanism map** and mark every price-dependent flow (candidate
+   `λ>1` loops).
+3. **Classify the game structure** with `references/game-models.md`.
+4. **Score the 12 rows** of `references/scorecard.md` using its measurement
+   procedures; fill the evidence table with confidence labels.
+5. **Compute distance-to-threshold** for every triggered row (runway months,
+   R vs 1, unlock walls vs depth…).
+6. **Stress-test** with the calibrated simulations (`references/simulations.md`).
+7. **Map contagion**, then **write the report** using the protocol's template:
+   verdict → scorecard → thresholds → stress test → prescriptions → limitations.
 
 ### Mode B — Designing resilient tokenomics from scratch
-Invert the anti-patterns into the 10 design axioms at the end of
-`references/anti-patterns.md`. The non-negotiable one is axiom #1: **decouple
-fundamentals from price (`λ < 1`)** — every other axiom serves it.
+Follow `references/design-playbook.md` step by step: necessity test → demand
+anchor → value capture → supply schedule (with parameter benchmarks) →
+stability infrastructure → incentives-as-CAC → liquidity plan → monitoring
+dashboard → pre-launch stress test → launch checklist. The constraints are the
+12 design axioms at the end of `references/anti-patterns.md`; the non-negotiable
+one is axiom #1: **decouple fundamentals from price (`λ < 1`)**.
 
 ### Mode C — Demonstrating / stress-testing a mechanism
-The `simulations/` folder (see `references/simulations.md`) has runnable, calibrated
-models for the 4 archetypes. Use them to *show* the phase transition, fit the
-critical parameter to a specific design, or generate charts for a report.
+The `simulations/` folder (see `references/simulations.md`) has runnable,
+calibrated models for the 4 archetypes. Use them to *show* the phase transition,
+fit the critical parameter to a specific design, or generate charts for a report.
 
-## Quick-reference: the 10 failure Skills
+## Quick-reference: the 12 failure Skills
 
-| # | Anti-pattern | One-line tell | Killer threshold |
-|---|---|---|---|
-| S1 | Reflexive collateral | reserve = the token itself | corr(reserve, liability) → 1 |
-| S2 | Subsidized demand engine | APY paid from subsidy, not revenue | payout > revenue; reserve runway < 12mo |
-| S3 | Uncapped faucet | reward token has no supply cap | sink/faucet < 1, sink needs new users |
-| S4 | (3,3) coordination fragility | "everyone stakes = best" | price/backing > 3; yield from inflation |
-| S5 | Sequential-service redemption | instant first-come-first-served + illiquid | liquidity coverage < redeemable liabilities |
-| S6 | Seigniorage absorbing barrier | mint/burn dual-token stable | reserve ratio R = M/S → 1 |
-| S7 | Float–FDV asymmetry | low float, high FDV, cheap insiders | float <10%; 1yr unlock >50% of float |
-| S8 | Velocity leak | pure medium-of-exchange, no capture | no burn/lock/fee-share; high velocity |
-| S9 | Narrative-only demand | celeb/meme, zero cash flow | no revenue; concentrated, unlocked holders |
-| S10 | Leverage contagion | tokens cross-collateralize each other | shared MM/collateral; corr→1 in stress |
+Tiers: **engine** (creates the spiral, weight ×3), **structure** (builds sell
+pressure, ×2), **amplifier** (worsens shocks, ×1).
+
+| # | Anti-pattern | Tier | One-line tell | Killer threshold |
+|---|---|---|---|---|
+| S1 | Reflexive collateral | engine | reserve = the token itself | corr(reserve, liability) → 1 |
+| S2 | Subsidized demand engine | engine | APY paid from subsidy, not revenue | payout > revenue; runway < 12mo |
+| S3 | Uncapped faucet | structure | reward token has no supply cap | sink/faucet < 1, sink needs new users |
+| S4 | (3,3) coordination fragility | structure | "everyone stakes = best" | price/backing > 3; yield from inflation |
+| S5 | Sequential-service redemption | engine | instant FCFS + illiquid | liquidity coverage < redeemable liabilities |
+| S6 | Seigniorage absorbing barrier | engine | mint/burn dual-token stable | reserve ratio R = M/S → 1 |
+| S7 | Float–FDV asymmetry | structure | low float, high FDV, cheap insiders | float <10%; 1yr unlock >50% of float |
+| S8 | Velocity leak | amplifier | pure medium-of-exchange, no capture | no burn/lock/fee-share; high velocity |
+| S9 | Narrative-only demand | engine | celeb/meme, zero cash flow | no revenue; concentrated, unlocked |
+| S10 | Leverage contagion | amplifier | tokens cross-collateralize | shared MM/collateral; corr→1 in stress |
+| S11 | Mercenary points / rented TVL | structure | TVL arrives with the points program | organic share <30%; snapshot cliff |
+| S12 | Recursive leverage loop | structure | derivative looped as its own collateral | unwind size > real market depth |
+
+**Decision rule** (calibrated on 10 collapses + 8 survivors, see
+`references/scorecard.md`): any engine clearly present → structural
+death-spiral risk, redesign first. Structures without engines → bleed or
+deleveraging risk; survival hinges on the zero-price anchor. Amplifiers alone →
+survivable, but they set the blast radius.
 
 Full detail, instances, and antidotes: `references/anti-patterns.md`.
+Why the survivors survived (control group): `references/survivors.md`.
 
 ## Hard red lines (auto-fail)
 - Algorithmic stablecoin collateralized by its own/affiliated token, no reserve circuit-breaker. (S6+S1 → Terra, Iron)
@@ -88,9 +113,17 @@ Full detail, instances, and antidotes: `references/anti-patterns.md`.
 - Reward emission with no cap whose only sink is user growth. (S3 → Axie, STEPN)
 - Instant full redemption promised against illiquid/maturity-mismatched assets. (S5 → FTX, Celsius)
 - Demand that fails the zero-price test (100% narrative/APY/celebrity). (S9 → LIBRA, SQUID)
+- Leverage loops whose unwind exceeds real market depth, with no LTV/supply caps. (S12 → UST Degenbox, LRT cascades)
 
 ## Scope & honesty
-Research and design reference, **not investment advice**. Ponzi/rug cases (S9) are
-*fraud*, not failed engineering — for those, the skill's value is detection, not
-repair. Estimates in the data layer are order-of-magnitude; reconcile against live
+Research and design reference, **not investment advice**. Ponzi/rug cases (S9)
+are *fraud*, not failed engineering — for those, the skill's value is detection,
+not repair. Validation status: in-sample calibration (18 cases) **plus an
+out-of-sample layer** — a 15-case leakage-audited holdout backtest (decision
+rule 15/15 correct) and a frozen prospective registry with falsifiable
+predictions under 2027/2028 review (repo `validation/`; summarized in
+`references/scorecard.md`). Key nuance from the holdout: **the weighted total
+is an intensity gauge, not the classifier** — trust the engine → structure →
+anchor rule. Treat fresh audits as hypotheses and re-score as data improves.
+Estimates in the data layer are order-of-magnitude; reconcile against live
 data. Several named cases involve ongoing litigation — defer to final rulings.

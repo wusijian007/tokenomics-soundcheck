@@ -1,15 +1,35 @@
-# The 10 Failure Skills (Anti-Pattern Catalog)
+# The 12 Failure Skills (Anti-Pattern Catalog)
 
 Each anti-pattern is something you can detect at the **whitepaper / smart-contract
 stage**, before launch. Format: core → game/math structure → quantitative red
 flags → historical instances → design antidote.
 
+S1–S10 are distilled from the 2009–2022 collapse record; S11–S12 cover the
+2023–2026 wave (points-farmed TVL, restaking/looped leverage). Measurement
+procedures for every red flag live in `scorecard.md`.
+
 > Companion analysis with full derivations: `../../../death-spiral-deep-analysis.md`
 > (Chinese: `代币经济学死亡螺旋_深度分析与失败Skills.md`). Game models: `game-models.md`.
+> Control group (why survivors survived): `survivors.md`.
+
+## Three tiers — engines, structures, amplifiers
+
+| Tier | Skills | Role | Typical failure shape |
+|---|---|---|---|
+| **Engine** (×3 weight) | S1 S2 S5 S6 S9 | creates the `λ>1` loop itself | run / collapse to zero |
+| **Structure** (×2 weight) | S3 S4 S7 S11 S12 | builds structural sell pressure | slow bleed / violent deleveraging |
+| **Amplifier** (×1 weight) | S8 S10 | worsens whatever else fires | stress passthrough |
+
+**Decision rule (calibrated on 18 historical cases and validated out-of-sample
+on 15 leakage-audited holdout cases, 15/15 correct — see `scorecard.md`):**
+any *engine* clearly present → structural death-spiral risk, redesign before
+anything else. No engine but a *structure* clearly present → bleed/deleveraging
+risk; survival then depends entirely on the zero-price anchor test. Amplifiers
+alone → survivable, but they set how hard external shocks hit.
 
 ---
 
-## S1 — Reflexive Collateral
+## S1 — Reflexive Collateral (engine)
 - **Core**: the token uses itself (or an asset tightly correlated to itself) as
   reserve / collateral.
 - **Structure**: collateral value and the liability it backs are positively
@@ -21,7 +41,7 @@ flags → historical instances → design antidote.
 - **Antidote**: exogenous, *de-correlated* collateral (USDC/ETH); >150%
   overcollateralization; reserve-adequacy circuit breaker.
 
-## S2 — Subsidized Demand Engine
+## S2 — Subsidized Demand Engine (engine)
 - **Core**: core demand comes from a subsidized high APY, not real willingness to pay.
 - **Structure**: a subsidy is a forward-borrow against future demand (reflexive
   demand curve). When the subsidy ends or confidence flips, demand vanishes.
@@ -32,7 +52,7 @@ flags → historical instances → design antidote.
 - **Antidote**: real yield (= real fees); APY auto-throttles to reserve; design a
   soft-landing for when the subsidy is withdrawn.
 
-## S3 — Uncapped Faucet
+## S3 — Uncapped Faucet (structure)
 - **Core**: the reward token has no hard supply cap and its sink depends on new users.
 - **Structure**: faucet (emission) is not reflexive but sink (burn/use) is — it
   only clears while the user base grows. `sink/faucet < 1` once growth stalls.
@@ -42,7 +62,7 @@ flags → historical instances → design antidote.
 - **Antidote**: bind emission to the realized sink (mint ≤ burn); hard cap; make
   the sink real utility consumed by existing users, not onboarding by new ones.
 
-## S4 — Coordination-Fragile Staking ((3,3))
+## S4 — Coordination-Fragile Staking ((3,3)) (structure)
 - **Core**: the model paints "everyone stakes" as optimal, but the Nash
   equilibrium is "everyone exits".
 - **Structure**: a prisoner's dilemma disguised as cooperation; backward induction
@@ -53,7 +73,7 @@ flags → historical instances → design antidote.
 - **Antidote**: pay yield from real revenue; symmetrize exit; publish backing and
   discourage premium speculation.
 
-## S5 — Sequential-Service Redemption (Bank Run)
+## S5 — Sequential-Service Redemption (Bank Run) (engine)
 - **Core**: instant, full, first-come-first-served redemption + maturity/liquidity
   mismatch.
 - **Structure**: Diamond–Dybvig multiple equilibria; the first-mover advantage
@@ -63,8 +83,11 @@ flags → historical instances → design antidote.
 - **Instances**: FTX, Celsius, Voyager, the Anchor withdrawal wave.
 - **Antidote**: redemption queues / lockups; **pro-rata haircuts instead of FCFS**
   (kills the run incentive); liquidity coverage > 100%; circuit breakers.
+- **Corollary (from the stETH control case)**: it is the *promise* of instant
+  redemption, not illiquidity itself, that creates the run. An asset with no
+  instant-redemption promise can trade at a discount but cannot be run.
 
-## S6 — Seigniorage Absorbing Barrier
+## S6 — Seigniorage Absorbing Barrier (engine)
 - **Core**: a dual-token mint/burn stablecoin turns de-peg selling pressure into
   unlimited minting of the reserve token.
 - **Structure**: reserve ratio `R = M_reserve / S_stable`. `R < 1` is an
@@ -77,7 +100,7 @@ flags → historical instances → design antidote.
   rate-limiting is only a band-aid — the real fix is to drop "algorithmic + own
   token" entirely.
 
-## S7 — Float–FDV Asymmetry
+## S7 — Float–FDV Asymmetry (structure)
 - **Core**: the marginal seller (insiders) has a cost basis ≈ 0, and continuous
   unlocks drag price toward the floor.
 - **Structure**: lemon market (info asymmetry on the unlock calendar) + a supply
@@ -88,7 +111,7 @@ flags → historical instances → design antidote.
 - **Antidote**: long, linear unlocks (no cliffs); float matched to real demand
   depth; insider unlocks tied to verifiable milestones; on-chain public calendar.
 
-## S8 — Velocity Leak
+## S8 — Velocity Leak (amplifier)
 - **Core**: a pure medium-of-exchange token with no value capture; high velocity
   keeps pushing price down.
 - **Structure**: `P = utility_value / (M · V)` — high V → low P; no non-reflexive
@@ -98,8 +121,10 @@ flags → historical instances → design antidote.
 - **Instances**: most utility/GameFi reward tokens.
 - **Antidote**: fee burn, ve-locking for governance + fee share — upgrade the token
   from "medium of exchange" to "productive asset".
+- **Calibration note**: S8 alone is a *price-performance* problem, not a spiral
+  (UNI survived years of zero value capture). That is why its weight is ×1.
 
-## S9 — Narrative-Only Demand
+## S9 — Narrative-Only Demand (engine)
 - **Core**: demand is 100% narrative / celebrity / meme with no cash-flow anchor.
 - **Structure**: extreme reflexive demand = attention; attention can be financed
   instantly and can evaporate instantly. (Usually *fraud*, not failed engineering.)
@@ -109,20 +134,67 @@ flags → historical instances → design antidote.
 - **Antidote**: none by design — the value here is *detection and avoidance*, and a
   regulatory/due-diligence red line.
 
-## S10 — Leverage Contagion
+## S10 — Leverage Contagion (amplifier)
 - **Core**: protocols are interlinked at the collateral / market-making / lending
   layer, so one local spiral becomes systemic.
 - **Structure**: tokens cross-collateralize; concentrated market makers; in a
   crisis correlations → 1.
 - **Red flags**: tokens used as collateral for each other; few affiliated MMs
-  provide most liquidity; shared upstream risk exposure.
+  provide most liquidity; shared upstream risk exposure; **key-person leverage**
+  (founder/whale loans collateralized by the governance token — CRV, Aug 2023).
 - **Instances**: Terra → 3AC → Celsius/Voyager → FTX chain reaction.
 - **Antidote**: diversify collateral + stress-test correlations; cap affiliated
-  MM concentration; isolate risk exposures.
+  MM concentration; isolate risk exposures; monitor large on-chain loans against
+  the native token.
+
+## S11 — Mercenary Points / Rented TVL (structure, 2023–26)
+- **Core**: growth metrics (TVL, users, volume) are *rented* with expected future
+  token payments (points → airdrop). The demand is a forward claim on the token,
+  so it evaporates exactly when the token arrives.
+- **Structure**: a points program forward-sells emissions. Expected-airdrop value
+  scales with FDV expectations → reflexive. Because every farmer shares the same
+  snapshot/TGE calendar, exit is *coordinated*: the airdrop unlock (supply shock)
+  and the mercenary-capital exit (demand cliff) land on the same day. Combines
+  Model 4 (supply glut) with Model 2 (new-money game).
+- **Red flags**: majority of TVL arrived only after the points announcement;
+  capital exits at each season snapshot; fee revenue per $ TVL far below peers
+  (parked, not used); escalating multi-season promises; points farmed with
+  leverage (loops → S12); points markets pricing implied FDV far above
+  comparables.
+- **Instances**: Blast (TVL cliff after the mid-2024 airdrop), friend.tech
+  (activity and fees collapsed once the reward cycle ended), the 2024 LRT
+  points wave, trade-mining wash volume (dYdX v1 era).
+- **Antidote**: vest/lock rewards past TGE; reward *flow* (fees actually paid)
+  rather than *stock* (TVL parked); publish an organic-baseline dashboard
+  (what remains if points stop); taper seasons; cap airdrop size relative to
+  TGE float so the cliff can't overwhelm demand.
+
+## S12 — Recursive Leverage Loop (structure, 2022–26)
+- **Core**: a yield-bearing derivative is looped as collateral to borrow its own
+  underlying (deposit stETH → borrow ETH → buy stETH → repeat), or a "stable"
+  carry yield is levered (UST Degenbox; funding-rate carry). The base asset can
+  be sound — the loop adds a liquidation channel that makes the *system*
+  reflexive.
+- **Structure**: with loop LTV `ℓ` and `n` iterations, system leverage
+  → `1/(1−ℓ)` as n grows. A small discount/de-peg breaches clustered liquidation
+  thresholds → forced unwinding sells the derivative into thin liquidity →
+  deeper discount → more liquidations. `λ > 1` through the liquidation channel.
+  Critical condition: **potential unwind size > real secondary-market depth**.
+- **Red flags**: a large share of the derivative's float sits in leveraged loops;
+  loop APY ≫ base APY; liquidation thresholds clustered in a narrow band; thin
+  DEX depth vs loop size; funding-rate-dependent yield marketed as "stable";
+  no supply/LTV caps on correlated collateral.
+- **Instances**: stETH loop unwind of June 2022 (amplified Celsius/3AC; stETH
+  itself held — see `survivors.md`), UST Degenbox leverage (Abracadabra),
+  ezETH's April 2024 depeg-liquidation cascade. Watch item: levered
+  funding-carry stables in a prolonged negative-funding regime.
+- **Antidote**: LTV and supply caps for self-referential/correlated collateral;
+  stress-test the full unwind against *actual* DEX depth, not TVL; oracle-
+  deviation circuit breakers; never market carry yield as principal-stable.
 
 ---
 
-# The 10 Design Axioms (mirror of the anti-patterns)
+# The 12 Design Axioms (mirror of the anti-patterns)
 
 1. **Decouple fundamentals from price** — ensure `λ < 1`. This is the master axiom.
 2. **Exogenous, de-correlated collateral** — never the native token; stress-test
@@ -139,6 +211,16 @@ flags → historical instances → design antidote.
    fee-share/governance, not APY bribery.
 8. **Demand must pass the zero-price test** — "if price went to zero, would anyone
    still need this?" If no, redesign or don't ship.
-9. **Isolate contagion** — limit cross-protocol collateral links and MM concentration.
+9. **Isolate contagion** — limit cross-protocol collateral links, MM concentration,
+   and key-person leverage on the governance token.
 10. **Transparency is verifiable** — treasury, collateral, unlocks, team holdings
     all on-chain readable. Opacity is the #1 sunspot fuel.
+11. **Rent growth only with vesting** — reward flow (fees paid), not stock (TVL
+    parked); know and publish your organic baseline; size the airdrop so the
+    TGE cliff cannot overwhelm real demand.
+12. **Cap recursion** — leverage loops on your own token/derivative are a systemic
+    short fuse; cap LTV and supply for correlated collateral and stress-test the
+    unwind against real market depth.
+
+The positive-direction expansion of these axioms — a full design process with
+parameter benchmarks and a worked example — is in `design-playbook.md`.

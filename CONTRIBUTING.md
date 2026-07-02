@@ -13,8 +13,18 @@ new game-theoretic model.
 - **Corrections** — wrong figures, dates, mislabeled mechanisms, dead links.
 - **New / improved simulations** — better calibration, a new archetype, cleaner code.
 - **New antidotes or design axioms** — battle-tested fixes for an anti-pattern.
+- **Survivor / control cases** — stress events a design *survived*, mapped to the
+  axioms that carried it (`skills/.../references/survivors.md`), and back-scored
+  in `data/scorecard_calibration.py`.
+- **Validation** — new *leakage-audited* holdout cases for
+  `validation/holdout_backtest.py` (the case must appear nowhere else in the
+  repo), and **grading the prospective registry** at its review dates
+  (2027-07-02 / 2028-07-02) per the append-only rules in `validation/README.md`.
+  Challenges to any individual row score are welcome — that is what the
+  published per-row justifications are for.
 - **Translations** — keeping the EN ⇄ ZH documents in sync.
-- **Data** — improving `data/case_dataset.py` with better-sourced estimates.
+- **Data** — improving `data/case_dataset.py` / `data/scorecard_calibration.py`
+  with better-sourced estimates.
 
 ## Scope & principles
 
