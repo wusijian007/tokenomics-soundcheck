@@ -61,27 +61,38 @@ Follow `references/audit-protocol.md` end-to-end:
    procedures; fill the evidence table with confidence labels.
 5. **Compute distance-to-threshold** for every triggered row (runway months,
    R vs 1, unlock walls vs depth…).
-6. **Stress-test** with the calibrated simulations (`references/simulations.md`).
-7. **Map contagion**, then **write the report** using the protocol's template:
-   verdict → scorecard → thresholds → stress test → prescriptions → limitations.
+6. **Score the security panel** (S13/S14/S15) — the cost-of-corruption ledger
+   in `references/economic-security.md`. This is a *separate axis* from the
+   spiral score: it catches attacks where the code works and the mechanism is
+   mispriced (Beanstalk, Mango). Mandatory for anything with governance, a
+   price oracle used for leverage, or a DePIN/work-token supply side.
+7. **Stress-test** with the calibrated simulations (`references/simulations.md`).
+8. **Map the control surfaces** (governance / oracle / consensus / liquidity)
+   and contagion, then **write the report** using the protocol's template:
+   verdict → scorecard → security panel → thresholds → stress test → valuation
+   context → prescriptions → limitations (incl. the blind-spot register).
 
 ### Mode B — Designing resilient tokenomics from scratch
 Follow `references/design-playbook.md` step by step: necessity test → demand
 anchor → value capture → supply schedule (with parameter benchmarks) →
 stability infrastructure → incentives-as-CAC → liquidity plan → monitoring
 dashboard → pre-launch stress test → launch checklist. The constraints are the
-12 design axioms at the end of `references/anti-patterns.md`; the non-negotiable
-one is axiom #1: **decouple fundamentals from price (`λ < 1`)**.
+15 design axioms at the end of `references/anti-patterns.md` (12 spiral + 3
+economic-security); the non-negotiable one is axiom #1: **decouple fundamentals
+from price (`λ < 1`)**.
 
 ### Mode C — Demonstrating / stress-testing a mechanism
 The `simulations/` folder (see `references/simulations.md`) has runnable,
 calibrated models for the 4 archetypes. Use them to *show* the phase transition,
 fit the critical parameter to a specific design, or generate charts for a report.
 
-## Quick-reference: the 12 failure Skills
+## Quick-reference: the 15 failure Skills
 
-Tiers: **engine** (creates the spiral, weight ×3), **structure** (builds sell
-pressure, ×2), **amplifier** (worsens shocks, ×1).
+Two axes. **Spiral risk** (S1–S12, scored 0–54): reflexive dynamics that
+amplify a decline. **Attack risk** (S13–S15, separate panel): discrete
+exploits where the code works and the mechanism is mispriced. Spiral tiers:
+**engine** (creates the spiral, ×3), **structure** (builds sell pressure, ×2),
+**amplifier** (worsens shocks, ×1).
 
 | # | Anti-pattern | Tier | One-line tell | Killer threshold |
 |---|---|---|---|---|
@@ -97,14 +108,20 @@ pressure, ×2), **amplifier** (worsens shocks, ×1).
 | S10 | Leverage contagion | amplifier | tokens cross-collateralize | shared MM/collateral; corr→1 in stress |
 | S11 | Mercenary points / rented TVL | structure | TVL arrives with the points program | organic share <30%; snapshot cliff |
 | S12 | Recursive leverage loop | structure | derivative looped as its own collateral | unwind size > real market depth |
+| S13 | Captureable governance | attack surface | quorum is buyable/borrowable | cost-to-corrupt < value at stake; no timelock |
+| S14 | Manipulable-oracle leverage | attack surface | thin token as collateral/perp | manip cost < borrowable value |
+| S15 | Supply-subsidy mismatch | structure (DePIN) | emissions pay hardware, no demand | service revenue / emissions ≪ 1 |
 
-**Decision rule** (calibrated on 10 collapses + 8 survivors, see
-`references/scorecard.md`): any engine clearly present → structural
-death-spiral risk, redesign first. Structures without engines → bleed or
-deleveraging risk; survival hinges on the zero-price anchor. Amplifiers alone →
-survivable, but they set the blast radius.
+**Decision rule** (spiral axis; calibrated on 10 collapses + 8 survivors,
+validated on 15 holdout cases 15/15, see `references/scorecard.md`): any engine
+clearly present → structural death-spiral risk, redesign first. Structures
+without engines → bleed or deleveraging risk; survival hinges on the zero-price
+anchor. Amplifiers alone → survivable, but they set the blast radius. **On the
+attack axis**: any S13/S14 at 2 → treat the surface as already exploited (fix
+it — usually a timelock, a cap, or a delisting).
 
 Full detail, instances, and antidotes: `references/anti-patterns.md`.
+The cost-of-corruption ledger (S13–S15): `references/economic-security.md`.
 Why the survivors survived (control group): `references/survivors.md`.
 
 ## Hard red lines (auto-fail)
@@ -114,6 +131,8 @@ Why the survivors survived (control group): `references/survivors.md`.
 - Instant full redemption promised against illiquid/maturity-mismatched assets. (S5 → FTX, Celsius)
 - Demand that fails the zero-price test (100% narrative/APY/celebrity). (S9 → LIBRA, SQUID)
 - Leverage loops whose unwind exceeds real market depth, with no LTV/supply caps. (S12 → UST Degenbox, LRT cascades)
+- Governance quorum cheaper to buy/borrow/flash-loan than the treasury it controls, with no timelock. (S13 → Beanstalk)
+- Leverage against a token whose oracle price costs less to move than the credit it unlocks. (S14 → Mango)
 
 ## Scope & honesty
 Research and design reference, **not investment advice**. Ponzi/rug cases (S9)

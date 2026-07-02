@@ -7,7 +7,7 @@
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-blue.svg)](LICENSE)
 [![Python 3.x](https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white)](simulations/)
 [![Cases analyzed](https://img.shields.io/badge/cases-50%2B-red.svg)](token-collapse-analysis-2009-2026.md)
-[![Failure Skills](https://img.shields.io/badge/failure%20skills-12-purple.svg)](skills/)
+[![Failure Skills](https://img.shields.io/badge/failure%20skills-15-purple.svg)](skills/)
 ![GitHub stars](https://img.shields.io/github/stars/wusijian007/tokenomics-autopsy?style=social)
 
 > 🌐 **English** | [中文](README.zh.md) · License: [CC BY 4.0](LICENSE)
@@ -24,7 +24,7 @@
 |---|---|---|
 | **L1 Phenomenon** — Cases | 50 collapse cases + an 8-class mechanism taxonomy, with a total-count estimate | [`token-collapse-analysis-2009-2026.md`](token-collapse-analysis-2009-2026.md) |
 | **L2 Mechanism** | Unified reflexivity equation (λ>1), 4 game models, quantitative supply-demand anatomy, case-by-case breakdowns + simulation charts | [`death-spiral-deep-analysis.md`](death-spiral-deep-analysis.md) |
-| **L3 Knowledge** — Skills | A triggerable open-source skill pack: 12 failure anti-patterns, a measurable risk scorecard, a full audit protocol, a survivor control group, and a 10-step design playbook | [`skills/`](skills/) |
+| **L3 Knowledge** — Skills | A triggerable open-source skill pack: 15 failure anti-patterns (12 spiral + 3 economic-attack), a measurable scorecard + cost-of-corruption security panel, a full audit protocol with valuation & blind-spot modules, a survivor control group, and a 10-step design playbook | [`skills/`](skills/) |
 
 Supporting layers:
 - [`simulations/`](simulations/) — 4 calibrated, reproducible Python simulations that generate every phase-transition chart.
@@ -49,9 +49,9 @@ the token's own price becomes the fuel for the mechanism, and any downward pertu
 
 ---
 
-## The 12 failure Skills (quick reference)
+## The 15 failure Skills (quick reference)
 
-Tiers: **engine** (creates the spiral, weight ×3) · **structure** (builds sell pressure, ×2) · **amplifier** (worsens shocks, ×1).
+Two axes. **Spiral risk** (S1–S12, scored 0–54) — reflexive dynamics that amplify a decline; tiers **engine** (×3) · **structure** (×2) · **amplifier** (×1). **Attack risk** (S13–S15, separate security panel) — discrete exploits where the code works and the mechanism is mispriced.
 
 | # | Anti-pattern | Tier | Killer threshold |
 |---|---|---|---|
@@ -67,8 +67,15 @@ Tiers: **engine** (creates the spiral, weight ×3) · **structure** (builds sell
 | S10 | Leverage contagion | amplifier | tokens cross-collateralize; correlation → 1 in stress |
 | S11 | Mercenary points / rented TVL | structure | organic TVL share <30%; snapshot/TGE cliff |
 | S12 | Recursive leverage loop | structure | loop unwind size > real market depth |
+| S13 | Captureable governance | attack surface | cost to corrupt a quorum < value it controls; no timelock |
+| S14 | Manipulable-oracle leverage | attack surface | cost to move the oracle < borrowable value |
+| S15 | Supply-subsidy mismatch (DePIN) | structure | service revenue / emissions value ≪ 1 |
 
-Detail + antidotes: [`anti-patterns.md`](skills/tokenomics-death-spiral-audit/references/anti-patterns.md) · why survivors survived: [`survivors.md`](skills/tokenomics-death-spiral-audit/references/survivors.md)
+Detail + antidotes: [`anti-patterns.md`](skills/tokenomics-death-spiral-audit/references/anti-patterns.md) · the cost-of-corruption ledger (S13–S15): [`economic-security.md`](skills/tokenomics-death-spiral-audit/references/economic-security.md) · why survivors survived: [`survivors.md`](skills/tokenomics-death-spiral-audit/references/survivors.md)
+
+**Economic-attack axis** — the code executing as written is no defense: Beanstalk (governance) and Mango (oracle) were *purchases*, not hacks. Back-scoring every known economic attack shows the profit inequality (`value extractable − cost to corrupt > 0`) was computable **before** each attack ([`data/security_panel.py`](data/security_panel.py)):
+
+![cost of corruption](simulations/charts/data_security_cost_vs_prize.png)
 
 **Calibration (in-sample)** — the scorecard was back-scored on 18 historical cases (10 collapses, 8 stress survivors). Collapses score 12–37, survivors 1–11, and **no survivor triggers an engine red line** ([`data/scorecard_calibration.py`](data/scorecard_calibration.py)):
 
@@ -127,19 +134,28 @@ cryptofail/
 │   ├── README.md
 │   └── tokenomics-death-spiral-audit/
 │       ├── SKILL.md                       # L3 skill entry point (4 modes)
-│       └── references/{anti-patterns,game-models,scorecard,
-│                       audit-protocol,survivors,design-playbook,simulations}.md
+│       └── references/{anti-patterns,game-models,scorecard,economic-security,
+│                       audit-protocol,survivors,design-playbook,
+│                       lambda-formalization,simulations}.md
 ├── simulations/
 │   ├── sim1..sim4_*.py, run_all.py, viz.py, requirements.txt
 │   └── charts/*.png
 ├── data/
 │   ├── case_dataset.py / case_dataset.csv              # 38 collapse cases
-│   └── scorecard_calibration.py / scorecard_calibration.csv   # 18-case in-sample calibration
+│   ├── scorecard_calibration.py / scorecard_calibration.csv   # 18-case in-sample calibration
+│   └── security_panel.py / security_panel.csv          # cost-of-corruption back-scoring (S13/S14/S15)
+├── ROADMAP.md                                          # frontier gap analysis + v4→v6 plan
 └── validation/
     ├── README.md                                       # OOS protocol + freeze record
     ├── holdout_backtest.py / holdout_backtest.csv      # 15 leakage-audited held-out cases
     └── prospective-registry.md / registry_scores.csv   # frozen predictions (reviews 2027/2028)
 ```
+
+## Research agenda
+Where this project is headed — a frontier gap analysis across incentive
+economics, mechanism design, liquidity engineering, circular economies,
+valuation, and cryptoeconomic security, with a sequenced v4→v6 plan:
+[ROADMAP.md](ROADMAP.md).
 
 ## Contributing
 New cases, corrections, simulations, and translations are all welcome — see

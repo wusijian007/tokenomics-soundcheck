@@ -10,13 +10,15 @@ tokenomics**.
 tokenomics-death-spiral-audit/
   SKILL.md                      # entry point: core idea, 4 modes, quick-reference, red lines
   references/
-    anti-patterns.md            # the 12 failure Skills (engine/structure/amplifier) + 12 design axioms
+    anti-patterns.md            # the 15 failure Skills (engine/structure/amplifier/attack) + 15 design axioms
     game-models.md              # the 4 game-theoretic models + critical conditions
-    scorecard.md                # measurable 12-row scorecard + Terra & DAI worked examples + calibration
-    audit-protocol.md           # 15-min quick screen + full audit procedure + report template
+    scorecard.md                # measurable 12-row spiral scorecard + security panel + Terra/DAI examples + calibration
+    economic-security.md        # cost-of-corruption ledger: S13 governance, S14 oracle, S15 supply-subsidy
+    audit-protocol.md           # 15-min quick screen + 10-step full audit + valuation module + blind-spot register
     survivors.md                # control group: why DAI/USDC/stETH/BNB/ETH/GMX/UNI/CRV held
     design-playbook.md          # 10-step design process, parameter benchmarks, launch checklist
-    simulations.md              # how to run/adapt the 4 calibrated simulations
+    lambda-formalization.md     # λ as a Jacobian spectral radius + the reflexivity-beta estimation programme
+    simulations.md              # how to run/adapt the 5 calibrated simulations
 ```
 
 ## Using it as a Claude Code / Agent skill
@@ -27,11 +29,12 @@ mechanics, unlock schedules, or due diligence on a token.
 
 ## Using it as a human reference
 - **Evaluating a project**: `SKILL.md` → quick screen in `audit-protocol.md` →
-  full audit: `game-models.md` (classify) → `scorecard.md` (measure & score) →
-  `../simulations/` (stress-test) → report template.
+  full audit: `game-models.md` (classify) → `scorecard.md` (spiral score) →
+  `economic-security.md` (security panel) → `../simulations/` (stress-test) →
+  valuation module → report template with blind-spot register.
 - **Designing a token**: `design-playbook.md` end to end, with
-  `anti-patterns.md` as the constraint set and `survivors.md` as the positive
-  evidence base.
+  `anti-patterns.md` (15 axioms) as the constraint set and `survivors.md` as the
+  positive evidence base.
 
 The deep analysis with full derivations is in the repo root:
 `death-spiral-deep-analysis.md` (Chinese: `代币经济学死亡螺旋_深度分析与失败Skills.md`).

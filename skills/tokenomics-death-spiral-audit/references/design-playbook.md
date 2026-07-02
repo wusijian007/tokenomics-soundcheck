@@ -168,13 +168,16 @@ logic applied to governance).
 Run the design through the audit side of this skill before TGE:
 
 1. Score it on the 12-row scorecard (`scorecard.md`) — target: **total ≤ 7,
-   zero engine flags, zero structure flags at 2.**
-2. Parameterize the matching simulations (`simulations.md`): your reserve
-   ratio into sim1, your dilution/inflow into sim2, your sink/faucet into
-   sim3, your coverage into sim4. Find the critical parameter — then demand
-   the design survive **2× the worst historical shock** of its class.
-3. Red-team with the audit protocol's Tier-0 questions answered by someone
-   who didn't design the system.
+   zero engine flags, zero structure flags at 2** — and the **security panel**
+   (`economic-security.md`) — target: **no S13/S14 red lines.**
+2. Parameterize the matching simulations (`simulations.md`): reserve ratio into
+   sim1, dilution/inflow into sim2, sink/faucet into sim3, coverage into sim4,
+   treasury/quorum-cost into sim6 (governance). Find the critical parameter —
+   then demand the design survive **2× the worst historical shock** of its class.
+3. Red-team with the audit protocol's Tier-0 questions **and** the
+   cost-of-corruption ledger (can anyone buy/borrow/flash a quorum, or move the
+   oracle cheaper than the credit it unlocks?), answered by someone who didn't
+   design the system.
 
 ## Step 10 — Launch checklist (final gate)
 
@@ -187,8 +190,17 @@ Run the design through the audit side of this skill before TGE:
 - [ ] Redemption design pro-rata/queued under stress; coverage published
 - [ ] Circuit breakers specified (trigger → action → authority) and coded
 - [ ] Loop/LTV caps set; MM concentration capped; depth ≥ largest unlock tranche
+- [ ] **Governance (S13)**: votes locked (no flash voting) + a timelock long
+      enough to exit/veto; quorum floor sized to borrowable float; treasury not
+      held in the native token — corruption cost > prize at all times
+- [ ] **Oracle/leverage (S14)**: if the token is lendable/settleable, LTV and
+      caps derive from manipulation-cost math, not asset class; multi-venue
+      manipulation-aware oracle + deviation breaker
+- [ ] **Supply subsidy (S15)**, if DePIN/work-token: emissions demand-gated;
+      revenue/emissions published; mint ≤ k·burn once a BME exists
 - [ ] Monitoring dashboard live with the step-8 alarms
-- [ ] Scorecard ≤ 7 with zero engine flags, signed by a non-designer
+- [ ] Spiral scorecard ≤ 7 with zero engine flags **and** a clean security
+      panel (no S13/S14 red lines), signed by a non-designer
 
 ---
 

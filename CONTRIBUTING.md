@@ -28,10 +28,18 @@ new game-theoretic model.
 
 ## Scope & principles
 
-This repo is about **structural / mechanistic failure** (death spirals: reflexive
-collateral, subsidized demand, uncapped emission, bank runs, absorbing barriers,
-unlock gluts…). Pure fraud (rugs, Ponzis) is **included but always labeled as
-fraud**, not presented as failed engineering.
+This repo is about **structural / mechanistic failure** on two axes:
+**spiral risk** (death spirals: reflexive collateral, subsidized demand, uncapped
+emission, bank runs, absorbing barriers, unlock gluts…) and **economic-attack
+risk** (governance capture, oracle-manipulation leverage, supply-subsidy
+mismatch — where the code works and the *mechanism* is mispriced). Pure fraud
+(rugs, Ponzis) is **included but always labeled as fraud**, not presented as
+failed engineering. Contract *bugs* are out of scope (see the blind-spot
+register in `audit-protocol.md`).
+
+New economic-attack cases go in `data/security_panel.py` with the
+cost-of-corruption numbers (`cost to corrupt` vs `value extractable`) and map to
+S13/S14/S15 in `references/economic-security.md`.
 
 Please uphold:
 

@@ -7,7 +7,7 @@
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-blue.svg)](LICENSE)
 [![Python 3.x](https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white)](simulations/)
 [![Cases analyzed](https://img.shields.io/badge/cases-50%2B-red.svg)](加密项目代币崩溃分析_2009-2026.md)
-[![Failure Skills](https://img.shields.io/badge/failure%20skills-12-purple.svg)](skills/)
+[![Failure Skills](https://img.shields.io/badge/failure%20skills-15-purple.svg)](skills/)
 ![GitHub stars](https://img.shields.io/github/stars/wusijian007/tokenomics-autopsy?style=social)
 
 > [English](README.md) | 🌐 **中文** · 许可:[CC BY 4.0](LICENSE)
@@ -25,7 +25,7 @@
 |---|---|---|
 | **L1 现象层** Cases | 50 个崩盘案例 + 8 类机制分类,总量估算 | [`加密项目代币崩溃分析_2009-2026.md`](加密项目代币崩溃分析_2009-2026.md) |
 | **L2 机制层** Mechanisms | 统一反身性方程(λ>1)、4 个博弈模型、供需定量解剖、逐案拆解 + 仿真图 | [`代币经济学死亡螺旋_深度分析与失败Skills.md`](代币经济学死亡螺旋_深度分析与失败Skills.md) |
-| **L3 知识层** Skills | 可触发的开源 skill pack:12 个失败反模式 + 可测量评分卡 + 完整审计协议 + 幸存者对照组 + 10 步设计手册 | [`skills/`](skills/) |
+| **L3 知识层** Skills | 可触发的开源 skill pack:15 个失败反模式(12 螺旋 + 3 经济攻击)+ 可测量评分卡 + 腐化成本安全面板 + 完整审计协议(含估值/盲点模块)+ 幸存者对照组 + 10 步设计手册 | [`skills/`](skills/) |
 
 支撑层 / Supporting:
 - [`simulations/`](simulations/) — 4 个校准过的可复现 Python 仿真,生成所有相变图表。
@@ -48,9 +48,9 @@
 
 ---
 
-## 12 个失败 Skills(速查)/ The 12 failure Skills
+## 15 个失败 Skills(速查)/ The 15 failure Skills
 
-分层:**引擎 engine**(制造螺旋,权重 ×3)· **结构 structure**(累积卖压,×2)· **放大器 amplifier**(放大冲击,×1)。
+两个轴。**螺旋风险**(S1–S12,0–54 分)——放大下跌的反身性动力学;分层 **引擎**(×3)· **结构**(×2)· **放大器**(×1)。**攻击风险**(S13–S15,独立安全面板)——代码没错、机制被定价错的离散攻击。
 
 | # | 反模式 | 层级 | 致命阈值 |
 |---|---|---|---|
@@ -66,8 +66,15 @@
 | S10 | 杠杆传染 Leverage contagion | 放大器 | 互为抵押;危机中相关性→1 |
 | S11 | 雇佣兵积分 / 租来的 TVL | 结构 | 有机 TVL 占比 <30%;快照/TGE 悬崖 |
 | S12 | 递归杠杆循环 Recursive loop | 结构 | 平仓规模 > 真实市场深度 |
+| S13 | 可捕获治理 Captureable governance | 攻击面 | 腐化法定人数成本 < 其掌控价值;无时间锁 |
+| S14 | 可操纵预言机杠杆 | 攻击面 | 移动预言机成本 < 可借出价值 |
+| S15 | 供给侧补贴错配(DePIN) | 结构 | 服务收入 / 排放价值 ≪ 1 |
 
-详解 + 解药:[`anti-patterns.md`](skills/tokenomics-death-spiral-audit/references/anti-patterns.md) · 幸存者为何幸存(对照组):[`survivors.md`](skills/tokenomics-death-spiral-audit/references/survivors.md)
+详解 + 解药:[`anti-patterns.md`](skills/tokenomics-death-spiral-audit/references/anti-patterns.md) · 腐化成本账本(S13–S15):[`economic-security.md`](skills/tokenomics-death-spiral-audit/references/economic-security.md) · 幸存者为何幸存(对照组):[`survivors.md`](skills/tokenomics-death-spiral-audit/references/survivors.md)
+
+**经济攻击轴** — "代码按写的执行"不是防御:Beanstalk(治理)和 Mango(预言机)都是**购买**而非黑客。对每个已知经济攻击回测可见,利润不等式(`可提取价值 − 腐化成本 > 0`)在攻击**之前**就可计算([`data/security_panel.py`](data/security_panel.py)):
+
+![腐化成本](simulations/charts/data_security_cost_vs_prize.png)
 
 **校准(in-sample)** — 评分卡在 18 个历史案例上回测(10 个崩盘 + 8 个压力幸存者):崩盘组 12–37 分,幸存组 1–11 分,**没有任何幸存者触发引擎红线**([`data/scorecard_calibration.py`](data/scorecard_calibration.py)):
 
@@ -124,19 +131,25 @@ cryptofail/
 │   ├── README.md
 │   └── tokenomics-death-spiral-audit/
 │       ├── SKILL.md                           # L3 skill 入口(4 种模式)
-│       └── references/{anti-patterns,game-models,scorecard,
-│                       audit-protocol,survivors,design-playbook,simulations}.md
+│       └── references/{anti-patterns,game-models,scorecard,economic-security,
+│                       audit-protocol,survivors,design-playbook,
+│                       lambda-formalization,simulations}.md
 ├── simulations/
-│   ├── sim1..sim4_*.py, run_all.py, viz.py, requirements.txt
+│   ├── sim1..sim4 + sim6_governance_capture.py, run_all.py, viz.py
 │   └── charts/*.png
 ├── data/
 │   ├── case_dataset.py / case_dataset.csv               # 38 个崩盘案例
-│   └── scorecard_calibration.py / scorecard_calibration.csv  # 18 案例 in-sample 校准
+│   ├── scorecard_calibration.py / scorecard_calibration.csv  # 18 案例 in-sample 校准
+│   └── security_panel.py / security_panel.csv           # 腐化成本回测(S13/S14/S15)
+├── ROADMAP.md                                           # 前沿差距分析 + v4→v6 计划
 └── validation/
     ├── README.md                                        # OOS 协议 + 冻结记录
     ├── holdout_backtest.py / holdout_backtest.csv       # 15 个泄漏审计留出案例
     └── prospective-registry.md / registry_scores.csv    # 冻结预测(2027/2028 复核)
 ```
+
+## 研究议程 / Research agenda
+项目的下一步:横跨激励经济学、机制设计、流动性工程、循环经济、估值与加密经济安全的前沿差距分析,以及 v4→v6 路线图:[ROADMAP.md](ROADMAP.md)。
 
 ## 许可 / License
 CC BY 4.0。欢迎社区贡献新案例与新模型。数字为量级估算,请以实时数据为准;部分案例仍在诉讼中,定性以最终司法结论为准。

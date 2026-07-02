@@ -1,24 +1,37 @@
-# The 12 Failure Skills (Anti-Pattern Catalog)
+# The 15 Failure Skills (Anti-Pattern Catalog)
 
 Each anti-pattern is something you can detect at the **whitepaper / smart-contract
 stage**, before launch. Format: core → game/math structure → quantitative red
 flags → historical instances → design antidote.
 
 S1–S10 are distilled from the 2009–2022 collapse record; S11–S12 cover the
-2023–2026 wave (points-farmed TVL, restaking/looped leverage). Measurement
-procedures for every red flag live in `scorecard.md`.
+2023–2026 wave (points-farmed TVL, restaking/looped leverage); S13–S15 cover
+**economic attacks** — the orthogonal axis where the code works and the
+mechanism itself is mispriced (full framework: `economic-security.md`).
+Measurement procedures for every red flag live in `scorecard.md`.
 
 > Companion analysis with full derivations: `../../../death-spiral-deep-analysis.md`
 > (Chinese: `代币经济学死亡螺旋_深度分析与失败Skills.md`). Game models: `game-models.md`.
 > Control group (why survivors survived): `survivors.md`.
 
-## Three tiers — engines, structures, amplifiers
+## Four tiers — engines, structures, amplifiers, attack surfaces
 
 | Tier | Skills | Role | Typical failure shape |
 |---|---|---|---|
 | **Engine** (×3 weight) | S1 S2 S5 S6 S9 | creates the `λ>1` loop itself | run / collapse to zero |
-| **Structure** (×2 weight) | S3 S4 S7 S11 S12 | builds structural sell pressure | slow bleed / violent deleveraging |
+| **Structure** (×2 weight) | S3 S4 S7 S11 S12 S15 | builds structural sell pressure | slow bleed / violent deleveraging |
 | **Amplifier** (×1 weight) | S8 S10 | worsens whatever else fires | stress passthrough |
+| **Attack surface** (separate axis) | S13 S14 | discrete exploit where corruption cost < prize | one-shot drain, then collapse |
+
+S13/S14/S15 report on a **separate security panel**, not the 54-point spiral
+total (see `scorecard.md` and `economic-security.md`). Reason: the 54-point
+scorecard is **frozen at v2** for prospective-registry comparability, and
+instrument discipline (`ROADMAP.md` §3) bars folding new rows into the total
+until they clear full re-calibration and a re-freeze. S15 is *structure-class
+by nature* (it produces a slow bleed), which is why it sits in the structure
+tier above — but for scoring integrity it lives on the panel for now. Attack
+risk (S13/S14) is genuinely orthogonal to spiral risk and stays a separate
+axis permanently.
 
 **Decision rule (calibrated on 18 historical cases and validated out-of-sample
 on 15 leakage-audited holdout cases, 15/15 correct — see `scorecard.md`):**
@@ -192,9 +205,62 @@ alone → survivable, but they set how hard external shocks hit.
   stress-test the full unwind against *actual* DEX depth, not TVL; oracle-
   deviation circuit breakers; never market carry yield as principal-stable.
 
+## S13 — Captureable Governance (attack surface, 2020–26)
+- **Core**: assembling a deciding quorum costs less than the value the quorum
+  controls (treasury, mint rights, emissions).
+- **The inequality**: `cost(quorum) < value at stake`. Flash-loanable votes +
+  no timelock ⇒ cost ≈ fees ⇒ any treasury is a standing bounty.
+- **Red flags**: voting power usable in the block it was acquired; no
+  effective timelock; quorum borrowable on lending markets or rentable via
+  bribe markets below value at stake; custodial stake can vote; treasury held
+  in the native token (inflates the prize, crashes with the attack).
+- **Instances**: Beanstalk (Apr 2022, ≈$180M drained via flash-loaned
+  supermajority), Build Finance DAO (2022 hostile takeover), Tornado Cash
+  governance (2023), Steem custodial-stake takeover (2020). Defended
+  near-miss: Mochi vs Curve's emergency DAO (2021).
+- **Antidote**: vote-locking + real timelock (turns attacker cost from "fees"
+  into "position risk through the crash they cause"); quorum floors sized to
+  borrowable float; higher bars for treasury/mint actions; narrow emergency
+  veto; monitor bribe-rental cost per vote. Full math: `economic-security.md`.
+
+## S14 — Manipulable-Oracle Leverage (attack surface, 2020–26)
+- **Core**: a lending market / perp / CDP accepts a price that is cheaper to
+  move than the credit it unlocks.
+- **The inequality**: `cost(move price over the oracle window) <
+  borrowable at the inflated mark`.
+- **Red flags**: spot/single-venue oracle for a thin asset; no supply/borrow
+  caps; LTV set by asset class rather than manipulation cost; short oracle
+  window; platform's own token as collateral at self-set marks;
+  key-person-scale positions vs depth (CRV, Aug 2023 — survived, barely).
+- **Instances**: Mango (Oct 2022, ≈$114M), Venus/XVS (2021, ~$100M-scale bad
+  debt), Inverse Finance (2022, two attacks), Moola (2022).
+- **Antidote**: LTV/caps as a function of manipulation cost (depth over the
+  oracle window); OI caps tied to spot depth; multi-venue manipulation-aware
+  oracles + deviation breakers; refuse thin-asset leverage listings.
+  Full math: `economic-security.md`.
+
+## S15 — Supply-Subsidy Mismatch (structure, DePIN/work networks, 2020–26)
+- **Core**: emissions pay for *capacity* (hardware, storage, coverage) while
+  paid demand never arrives — the faucet pays machines instead of players.
+  S3's professionalized cousin.
+- **Structure**: `service revenue / emissions value ≪ 1` persistently. The sink
+  is real but tiny; token holders subsidize supply nobody rents.
+- **Red flags**: capacity metrics (nodes/hotspots/TB/coverage) growing while
+  paid demand is flat; revenue/emissions <5–10% for years; emissions
+  insensitive to utilization; hardware ROI marketed in token terms at current
+  prices; burn-and-mint equilibrium (BME) where burn ≪ mint.
+- **Instances**: Helium (2021–22 peak — sound BME design, fatal ratio: a few
+  $K/mo revenue vs tens of $M/mo emissions), Filecoin (single-digit
+  utilization for years; also an S7 case), Hivemapper-class networks
+  (evaluate live).
+- **Antidote**: demand-gated emissions (utilization multipliers, per-region
+  caps); BME mint floor tied to burn (mint ≤ k·burn); denominate hardware ROI
+  in service revenue, not token appreciation; publish revenue/emissions as a
+  first-class metric (Axiom 15). Full framework: `economic-security.md`.
+
 ---
 
-# The 12 Design Axioms (mirror of the anti-patterns)
+# The 15 Design Axioms (mirror of the anti-patterns)
 
 1. **Decouple fundamentals from price** — ensure `λ < 1`. This is the master axiom.
 2. **Exogenous, de-correlated collateral** — never the native token; stress-test
@@ -221,6 +287,14 @@ alone → survivable, but they set how hard external shocks hit.
 12. **Cap recursion** — leverage loops on your own token/derivative are a systemic
     short fuse; cap LTV and supply for correlated collateral and stress-test the
     unwind against real market depth.
+13. **Make corruption cost exceed the prize, always** — locked votes + real
+    timelocks + quorum floors sized to borrowable float; meter the bribe-rental
+    price of your own governance; keep the treasury off the native token.
+14. **Size leverage to manipulation cost** — LTV, caps, and listings derive from
+    depth-over-oracle-window math, never from asset-class vibes.
+15. **Gate supply subsidies on demand** — pay for utilization, not capacity;
+    publish revenue/emissions; mint ≤ k·burn once a BME exists.
 
 The positive-direction expansion of these axioms — a full design process with
 parameter benchmarks and a worked example — is in `design-playbook.md`.
+Axioms 13–15 (economic-security) are detailed in `economic-security.md`.

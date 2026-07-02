@@ -1,0 +1,16 @@
+name,surface,year,cost_or_revenue_usd_m,value_or_emissions_usd_m,ratio_cost_over_value,outcome,panel_score_0_1_2,note
+Beanstalk,S13,2022,0.05,180.0,0.0003,exploited,2,flash-loaned supermajority in one tx; no timelock; ~$180M drained (~$76M net)
+Build Finance DAO,S13,2022,0.1,1.5,0.0667,exploited,2,hostile vote accumulation -> mint + drain treasury; no guardian veto
+Tornado governance,S13,2023,0.2,3.0,0.0667,exploited,2,proposal with hidden self-grant of fake locked votes -> full control
+Steem takeover,S13,2020,5.0,100.0,0.05,exploited,2,exchanges voted custodied user stake to swap validators; community forked (Hive)
+Curve vs Mochi,S13,2021,3.0,100.0,0.03,defended,1,gauge+bribe steered emissions to self-dealing pool; emergency DAO killed the gauge
+Compound (timelocked),S13,2022,200.0,3000.0,0.0667,sound,0,large locked/deliberative supply + timelock: corruption cost >> prize
+Mango Markets,S14,2022,4.0,114.0,0.0351,exploited,2,MNGO perp pumped on thin book; inflated collateral -> ~$114M borrowed out
+Venus XVS,S14,2021,5.0,100.0,0.05,exploited,2,XVS pump -> borrow at inflated marks -> crash -> ~$100M-scale bad debt
+Inverse Finance,S14,2022,1.0,21.0,0.0476,exploited,2,INV TWAP moved via thin pool; two attacks ~$15.6M + ~$5.8M
+Moola Market,S14,2022,0.5,8.4,0.0595,exploited,2,MOO pumped on thin Celo DEX liquidity; ~$8.4M borrowed (mostly returned)
+Aave (caps+multi-oracle),S14,2023,150.0,50.0,3.0,sound,0,Chainlink multi-venue oracle + supply/borrow caps: manip cost > extractable
+CRV key-person loans,S14,2023,60.0,100.0,0.6,defended,1,founder loans vs CRV depth = near-cascade; OTC de-risk + params held (barely)
+Helium (peak),S15,2022,0.05,20.0,0.0025,bleed,2,~$K/mo data revenue vs tens of $M/mo emissions; ratio << 0.1; HNT -90%+
+Filecoin,S15,2022,5.0,300.0,0.0167,bleed,2,single-digit storage utilization for years; emissions >> paid demand
+Sound BME (target),S15,2025,60.0,100.0,0.6,sound,0,illustrative: revenue/emissions >= 0.5 with demand-gated mint

@@ -20,6 +20,7 @@ Each script is standalone and self-documenting: `python sim1_algo_stable_absorbi
 | `sim2_olympus_33_unraveling.py` | M2 (3,3) | OHM (premium ≈13.8×, APY ~7000%) | Premium collapses to **backing, not zero** (−92%). Bifurcation: premium needs perpetual new money > dilution. |
 | `sim3_p2e_faucet_sink.py` | M4 Inflation glut | Axie SLP (mint ≈4× burn) | Boom→saturation→bust; uncapped → ~0, capped (mint≤burn) survives the same demand shock. |
 | `sim4_bank_run_diamond_dybvig.py` | M1 Bank run | FTX/Celsius | Sequential service: ~51% of scenarios self-fulfill a run; pro-rata: ~17% (only extreme panic). |
+| `sim6_governance_capture.py` | S13 (security panel) | Beanstalk | No timelock: attack profitable across ~84% of the (treasury, quorum-cost) plane; a 7-day timelock flips it to ~7% by forcing hold-through-the-crash. The timelock is the cheapest circuit breaker. |
 
 ## How to adapt to your design
 - **Stablecoin**: set `sim1.simulate(R0=...)` to your reserve/liability ratio and
@@ -30,6 +31,9 @@ Each script is standalone and self-documenting: `python sim1_algo_stable_absorbi
   toggle `capped=True` to test an emission-bound-to-sink policy.
 - **Lending/exchange**: set `sim4` liquidity coverage `L`; compare sequential vs
   pro-rata to quantify how much a redemption-queue design shrinks your run basin.
+- **Governance**: set `sim6` treasury/float ratio and quorum-cornering cost;
+  read off the timelock length that flips your design from the profitable-attack
+  region to safe. Pair with the security panel in `economic-security.md`.
 
 ## Modeling notes (honesty)
 These are **minimal didactic models**, not forecasting tools. They reproduce the

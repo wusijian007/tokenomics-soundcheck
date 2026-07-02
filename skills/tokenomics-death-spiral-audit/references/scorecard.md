@@ -44,6 +44,25 @@ Usage: for every row scored 2, jump to that anti-pattern's **antidote** in
 far R is from 1, the exact unlock-wall dates) — the audit protocol
 (`audit-protocol.md`, step 5) shows how.
 
+## Security panel (separate axis — S13/S14/S15)
+
+Spiral risk (reflexive dynamics) and **attack risk** (discrete exploits where
+the code works but the mechanism is mispriced) are orthogonal. Score the three
+economic-attack rows on a **separate panel** and report it beside the spiral
+score — never summed into the 54 (the total is frozen at v2 for registry
+comparability; see `ROADMAP.md` §3).
+
+| Row | Skill | Metric (0 / 1 / 2) | Sources |
+|---|---|---|---|
+| Governance capture | S13 | cost-to-corrupt-quorum ÷ value at stake, under flash-loan/borrowed/rented-vote assumptions; timelock present? **0** cost ≫ value (locked votes + timelock). **1** partial/unverifiable. **2** quorum flash-loanable/borrowable/rentable below value at stake, or no effective timelock | governance contracts, lending-market borrowable float, bribe-market prices, timelock config |
+| Oracle/leverage | S14 | cost-to-move-oracle over its window ÷ borrowable at the inflated mark. **0** no leverage vs token, or caps sized to manip cost. **1** thin-asset leverage, partial caps. **2** manip cost < borrowable value on any live venue | oracle config, DEX/CEX depth over the TWAP window, listing LTV + caps |
+| Supply subsidy | S15 | service revenue ÷ emissions value (trailing, USD). **0** ≥0.5 or demand-gated. **1** 0.1–0.5, rising. **2** ≪0.1 persistently, emissions insensitive to utilization | protocol revenue dashboards, emissions schedule, DePIN usage metrics |
+
+**Any 2 on S13/S14 = red line** — treat as already-exploited when sizing risk;
+these are usually the *cheapest* fixes in the whole audit (a timelock, a cap, a
+delisting). Full framework, instances, and antidotes: `economic-security.md`.
+Back-scored calibration: `data/security_panel.py`.
+
 ---
 
 ## Worked example — Terra (LUNA/UST), early 2022

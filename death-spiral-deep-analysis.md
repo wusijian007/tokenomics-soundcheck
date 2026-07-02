@@ -374,6 +374,35 @@ Raw totals overlap in the elevated band out-of-sample — but the engine → str
 
 ---
 
+## 5b. The economic-attack axis (Skills #13–#15) — when the code works and the mechanism is mispriced
+
+Skills #1–#12 describe *reflexive dynamics*: systems that amplify their own decline. There is an orthogonal failure axis — **discrete economic attacks** where the contract executes exactly as written and the mechanism itself was underpriced. Beanstalk, Mango, and the Steem takeover were not hacks; they were *purchases*. The unifying tool is a **cost-of-corruption ledger**: for each control surface, `profit = value extractable − cost to corrupt`. Wherever that is positive under adversarial financing (flash loans, borrowed stake, rented votes), price the surface as already exploited. This is Budish's consensus-security bound generalized to governance, oracles, and liquidity. Full framework, instances, and antidotes: [economic-security.md](skills/tokenomics-death-spiral-audit/references/economic-security.md).
+
+### Skill #13 — Captureable Governance (attack surface)
+- **Core**: assembling a deciding quorum costs less than the value the quorum controls (treasury, mint rights, emissions keys).
+- **Structure**: `cost(quorum) < treasury + NPV(mint control)`. Flash-loanable votes with no timelock drive the left side to ≈0, so any treasury is a standing bounty.
+- **Red flags**: votes usable in the same tx they're acquired; no/bypassable timelock; quorum small vs borrowable float; native-token treasury inflating the prize; bribe-rental cost per vote ≪ token price; custodial stake that can vote.
+- **Instances**: Beanstalk (Apr 2022, ≈$180M via a flash-loaned supermajority), Build Finance (Feb 2022), Tornado governance (May 2023), Steem (2020); defended: Curve vs Mochi (Nov 2021).
+- **Antidote**: vote-locking + a timelock long enough to exit/veto (converts corruption cost from "fees" into "position risk through the crash you cause"); quorum floors sized to borrowable float; higher bars for treasury/mint actions; a narrow accountable emergency veto; treasury off the native token. Simulation: `sim6_governance_capture.py` (a 7-day timelock flips ~84% of the attackable plane to safe).
+
+### Skill #14 — Manipulable-Oracle Leverage (attack surface)
+- **Core**: a leverage venue accepts as collateral (or settles against) a price cheaper to move than the credit it unlocks.
+- **Structure**: `cost(move oracle X% over its window) < borrowable at the inflated mark`. Cost scales with real depth on the oracle's venues; value with LTV × caps.
+- **Red flags**: spot/single-venue oracle on a thin asset; no supply/borrow caps; LTV by asset class not manipulation cost; short oracle window; self-token as collateral at its own thin marks; key-person-scale positions vs depth.
+- **Instances**: Mango (Oct 2022, ≈$114M), Venus/XVS (2021), Inverse Finance (2022), Moola (2022).
+- **Antidote**: LTV/caps as a function of manipulation cost; manipulation-aware multi-venue oracles + deviation breakers; refuse leverage listings for cheaply-moved assets; OI caps tied to spot depth.
+
+### Skill #15 — Supply-Subsidy Mismatch (DePIN / work networks)
+- **Core**: emissions pay for *capacity* (hardware, storage, coverage) while paid demand never arrives — an emissions engine renting infrastructure theater. #3's professionalized cousin.
+- **Structure**: `service revenue / emissions value ≪ 1` persistently. The sink is real but tiny; token holders subsidize supply nobody rents.
+- **Red flags**: capacity metrics growing while paid demand is flat; revenue/emissions <5–10% for years; emissions insensitive to utilization; hardware ROI marketed in token terms; burn-and-mint equilibrium where burn ≪ mint.
+- **Instances**: Helium (2021–22 peak — sound BME design, fatal ratio), Filecoin (single-digit utilization for years; also #7), Hivemapper-class networks.
+- **Antidote**: demand-gated emissions (utilization multipliers, per-region caps); BME mint floor tied to burn (mint ≤ k·burn); denominate hardware ROI in service revenue; publish revenue/emissions.
+
+> **Scoring note**: S13/S14/S15 report on a **separate security panel** (0/1/2 per surface), never summed into the 54-point spiral score — attack risk and spiral risk are orthogonal, and the 54-point scorecard stays frozen at v2 for prospective-registry comparability. Back-scoring every attack above: the profit inequality was computable pre-hoc in all 8 exploited cases ([data/security_panel.py](data/security_panel.py) + the cost-vs-prize chart).
+
+---
+
 ## 6. Death-spiral risk scorecard (an operational tool)
 
 Turn chapter 5's Skills into a table you can score at design / due-diligence time. Score each item 0 (none) / 1 (partial) / 2 (clearly present), weight, and sum.
@@ -407,7 +436,7 @@ Turn chapter 5's Skills into a table you can score at design / due-diligence tim
 
 ## 7. Positive design principles for builders (the mirror of the anti-patterns)
 
-Flip the 12 Skills into "what you should do" and you get the design axioms of healthy tokenomics:
+Flip the 15 Skills into "what you should do" and you get the design axioms of healthy tokenomics (1–12 spiral; 13–15 economic-security):
 
 1. **Decouple fundamentals from price**: ensure `∂(fundamentals)/∂(price) ≈ 0`, i.e., §1's `λ < 1`. This is the master axiom for all others.
 2. **Exogenous, de-correlated collateral**: never use the native token as reserve; stress-test the tail scenario of correlation → 1.
@@ -421,6 +450,9 @@ Flip the 12 Skills into "what you should do" and you get the design axioms of he
 10. **Verifiable transparency**: treasury, collateral, unlocks, and team holdings all on-chain readable — opacity itself is the #1 sunspot fuel.
 11. **Rent growth only with vesting**: reward flow (fees paid), not stock (TVL parked); know and publish your organic baseline; size the airdrop so the TGE cliff cannot overwhelm real demand.
 12. **Cap recursion**: leverage loops on your own token/derivative are a systemic short fuse; cap LTV and supply for correlated collateral and stress-test the unwind against real depth.
+13. **Make corruption cost exceed the prize, always**: locked votes + real timelocks + quorum floors sized to borrowable float; keep the treasury off the native token (§5b, #13).
+14. **Size leverage to manipulation cost**: LTV, caps, and listings derive from depth-over-oracle-window math, never from asset-class vibes (§5b, #14).
+15. **Gate supply subsidies on demand**: pay for utilization, not capacity; publish revenue/emissions; mint ≤ k·burn once a BME exists (§5b, #15).
 
 > The constructive expansion of these axioms — a full 10-step design process with parameter benchmarks and a launch checklist — is the skill pack's [`design-playbook.md`](skills/tokenomics-death-spiral-audit/references/design-playbook.md).
 
@@ -442,3 +474,6 @@ Flip the 12 Skills into "what you should do" and you get the design axioms of he
 | #10 Leverage contagion | the 1→21 chain, 3AC/Celsius/Voyager |
 | #11 Mercenary points | outside the library (2023–26): Blast, friend.tech, the LRT points wave |
 | #12 Recursive loops | outside the library: stETH unwind (Jun 2022), UST Degenbox, ezETH (Apr 2024) |
+| #13 Captureable governance | outside the library: Beanstalk (Apr 2022), Build Finance, Tornado governance, Steem |
+| #14 Manipulable-oracle leverage | outside the library: Mango (Oct 2022), Venus/XVS, Inverse, Moola |
+| #15 Supply-subsidy mismatch | outside the library: Helium, Filecoin (also #7), Hivemapper-class |

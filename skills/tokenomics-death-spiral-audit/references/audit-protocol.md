@@ -101,34 +101,88 @@ condition and what direction it is trending:
 | S11 | organic TVL share; days to next snapshot | 22% organic, snapshot in 6 weeks |
 | S12 | unwind size ÷ 2% DEX depth | 5.3× depth → cascade on any 3% de-peg |
 
-### Step 6 — Stress-test
+### Step 6 — Security panel (cost-of-corruption ledger)
+
+Score the attack axis with `economic-security.md`. For each **control
+surface**, compute `cost to corrupt` vs `value extractable` under adversarial
+financing (flash loans, borrowed stake, rented votes, custodial shares):
+
+| Surface | Skill | The inequality to compute | Red line |
+|---|---|---|---|
+| Governance | S13 | cost(deciding quorum) vs treasury + NPV(mint/emissions control) | quorum flash-loanable/borrowable/rentable below value at stake, or no timelock |
+| Oracle / leverage | S14 | cost(move oracle X% over its window) vs borrowable at the inflated mark | manipulation cost < borrowable value on any live venue |
+| Supply subsidy | S15 | service revenue ÷ emissions value (trailing) | ≪ 0.1 persistently, emissions insensitive to utilization |
+| Consensus (L1/L2) | — | security spend vs value secured (Budish); stake rentability; validator/LST concentration | attack cost < bridged/secured value, or a >⅓ liveness veto |
+
+Mandatory whenever the design has governance over value, a price oracle used
+for credit, or a DePIN/work-token supply side. Report the panel **beside** the
+spiral score, never summed into it.
+
+### Step 7 — Stress-test
 
 Parameterize the matching simulation(s) with the audited numbers
 (`simulations.md` has the mapping table). Report the critical parameter — the
-run size / inflow growth / coverage at which the design flips regime — and how
-plausible that shock is against historical episodes (2022-grade drawdown,
-single-whale exit, negative-funding quarter).
+run size / inflow growth / coverage / quorum cost at which the design flips
+regime — and how plausible that shock is against historical episodes
+(2022-grade drawdown, single-whale exit, negative-funding quarter, a
+flash-loan-scale vote). For governance, `sim6_governance_capture.py` shows the
+timelock/vote-lock phase boundary.
 
-### Step 7 — Contagion map
+### Step 8 — Control-surface & contagion map
 
-List: where the token is accepted as collateral; who the top lenders/MMs are;
-known large loans against the token; what upstream failure would hit reserves.
-Score S10 from this, and name the single most plausible contagion path.
+Combine two maps:
+- **Control surfaces** (from step 6): governance, oracle, sequencer/consensus,
+  liquidity — who can move each, at what cost, controlling what value.
+- **Contagion**: where the token is accepted as collateral; top lenders/MMs;
+  known large loans against the token (incl. founder/key-person); what upstream
+  failure would hit reserves. Score S10, and name the single most plausible
+  contagion path.
 
-### Step 8 — Write the report
+### Step 9 — Valuation context (not a price target)
+
+The spiral score answers "will it *survive*?"; a full audit also frames "is it
+*priced* for that survival?" — without issuing a price target (not investment
+advice). First classify the **regime**, because it decides the method:
+
+- **Currency-regime token** (reward/medium-of-exchange, gas, dual-token soft
+  currency): governed by MV=PQ and inflation. Value ~ real transactional
+  demand ÷ (velocity × supply); death mode is Cagan-style hyperinflation
+  (reuse S3/S8). Ask: what non-speculative flow *must* hold it?
+- **Equity-regime token** (fee-share, ve, buyback, governance over cash flow):
+  governed by discounted claims. Triangulate:
+  - revenue/fee multiple vs comparable protocols (fully-diluted and float);
+  - staking-yield DDM: sustainable real yield ÷ (discount − growth);
+  - dilution-adjusted forward supply (reuse the S7 unlock numbers) → the
+    per-token claim after the next 12–24 months of emissions.
+
+Output a **risk × valuation quadrant** placement, in words:
+
+| | Low spiral risk | High spiral / attack flag |
+|---|---|---|
+| **Cheap vs fundamentals** | resilient & unloved (best risk/reward context) | value trap: cheap because the engine is priced in |
+| **Rich vs fundamentals** | priced for perfection (execution risk) | reflexive bubble (the case-library zone) |
+
+State the inputs and their confidence; this contextualizes the audit, it does
+not recommend a trade.
+
+### Step 10 — Write the report
 
 ```markdown
 # Tokenomics Audit — <project> (<date>)
 
 ## Verdict
-<one paragraph: score X/54, N engine flags, M structure flags, band,
- the single most dangerous loop in plain words, and the one-line action.>
+<one paragraph: spiral score X/54, N engine + M structure flags, band;
+ security panel result (any S13/S14/S15 red lines); the single most dangerous
+ loop or surface in plain words; the one-line action.>
 
 ## Mechanism map & game classification
 <diagram or description; which of the 4 models, expected failure shape>
 
-## Scorecard
+## Scorecard (spiral axis)
 <the 12-row evidence table, with confidence labels>
+
+## Security panel (attack axis)
+<S13/S14/S15 cost-of-corruption table; control surfaces and their prices>
 
 ## Critical thresholds & distance
 <the Step-5 table: each triggered row, current value, threshold, trend, ETA>
@@ -136,17 +190,41 @@ Score S10 from this, and name the single most plausible contagion path.
 ## Stress test
 <simulation parameters used, critical values found, plausibility assessment>
 
-## Contagion
-<links, concentrations, most plausible contagion path>
+## Control surfaces & contagion
+<who can move governance/oracle/consensus/liquidity, at what cost; most
+ plausible contagion path>
+
+## Valuation context (not a price target)
+<regime classification; the quadrant placement with its inputs and confidence>
 
 ## Prescriptions (prioritized)
-1. <engine fixes first — cite the antidote from anti-patterns.md>
+1. <engine fixes + any attack-surface red lines first — cite antidotes>
 2. <structure fixes — supply schedule, caps, vesting>
 3. <monitoring: which metrics to watch, alert thresholds, review date>
 
-## Limitations
-<data gaps, estimated rows, what would change the verdict>
+## Limitations & blind spots
+<data gaps, estimated rows, what would change the verdict, and which
+ blind-spot categories below apply>
 ```
+
+### The blind-spot register (state these in every report)
+
+The instrument sees *structural economic* failure. It is deliberately blind to
+several real ways a token dies — say so, so the verdict is not over-read:
+
+| Blind spot | Why it's out of scope | Where to look instead |
+|---|---|---|
+| **Smart-contract exploits** | code bugs, not mechanism design (reentrancy, math errors) | contract audits, formal verification |
+| **Regulatory / legal kill** | enforcement, sanctions, delistings | counsel, jurisdiction analysis |
+| **Key-person / operational** | founder fraud, lost keys, team implosion | governance, custody, key-person risk |
+| **Chain-level failure** | the underlying L1/L2 halts or is exploited | the security panel's consensus row, but only partially |
+| **Pure market beta** | the whole market draws down; no mechanism fault | position sizing, macro |
+| **Off-chain fraud beyond S9's tells** | fake reserves, cooked books an audit can't see | attestations, proof-of-reserves, forensic accounting |
+| **Narrative/timing** | *when* a sound-or-doomed design turns is not predicted | the instrument gives structure, never timing |
+
+Stating the blind spots is not boilerplate: a design can score 0/54 with no
+attack flags and still go to zero via any row above. The instrument bounds
+*one* failure family well; it does not bound the others.
 
 ---
 
@@ -164,5 +242,9 @@ Score S10 from this, and name the single most plausible contagion path.
   adoption.
 - **The team's spreadsheet is a scenario, not a forecast.** Re-derive runway
   and emissions from on-chain flows.
-- **Not investment advice.** The instrument detects structural collapse risk;
-  it says nothing about upside, timing, or fair value.
+- **Code audit ≠ economic audit.** Beanstalk and Mango passed their code
+  audits and were drained via the *mechanism* (step 6). The security panel and
+  the contract audit are complementary, not substitutes.
+- **Not investment advice.** The instrument detects structural collapse and
+  attack risk and frames valuation *context* (step 9); it never issues a price
+  target, and it does not predict *timing* — a doomed design can run for years.
