@@ -43,8 +43,11 @@ Grok Build also supports `grok skills install ./tokenomics-autopsy/skills/tokeno
 
 ## Option C — claude.ai / web agents (upload a zip)
 
-Build the self-contained archive and upload it where the product accepts
-skill/knowledge uploads (e.g., claude.ai → Settings → Capabilities → Skills):
+Download the prebuilt archive from the
+[latest release](https://github.com/wusijian007/tokenomics-autopsy/releases/latest)
+(SHA-256 checksums in the release notes) — or build it yourself — and upload it
+where the product accepts skill/knowledge uploads (e.g., claude.ai → Settings →
+Capabilities → Skills):
 
 ```bash
 python tools/build_skill_dist.py     # -> dist/tokenomics-death-spiral-audit-v2.0.0.zip
@@ -52,11 +55,13 @@ python tools/build_skill_dist.py     # -> dist/tokenomics-death-spiral-audit-v2.
 
 ## Option D — platforms with no skills mechanism (prompt pack)
 
-The build also compiles the whole skill into one file —
-`dist/PROMPT_PACK.md` (~150 KB, ≈38k tokens). Paste it into a system prompt,
-project instructions, or a knowledge file (web Grok/ChatGPT/Gemini projects).
-Prefer a real skill install where supported: progressive disclosure loads only
-what each task needs.
+`PROMPT_PACK.md` — the whole skill compiled into one file (~150 KB, ≈38k
+tokens) — is attached to the
+[latest release](https://github.com/wusijian007/tokenomics-autopsy/releases/latest)
+(or build it with the same command). Paste it into a system prompt, project
+instructions, or a knowledge file (web Grok/ChatGPT/Gemini projects). Prefer a
+real skill install where supported: progressive disclosure loads only what each
+task needs.
 
 ## Option E — agents working inside this repo
 
