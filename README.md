@@ -10,7 +10,7 @@
 [![Python 3.x](https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white)](simulations/)
 [![Cases analyzed](https://img.shields.io/badge/cases-50%2B-red.svg)](token-collapse-analysis-2009-2026.md)
 [![Failure Skills](https://img.shields.io/badge/failure%20skills-15-purple.svg)](skills/)
-![GitHub stars](https://img.shields.io/github/stars/wusijian007/tokenomics-autopsy?style=social)
+![GitHub stars](https://img.shields.io/github/stars/wusijian007/tokenomics-soundcheck?style=social)
 
 > 🌐 **English** | [中文](README.zh.md) · License: [CC BY 4.0](LICENSE)
 
@@ -74,7 +74,7 @@ Two axes. **Spiral risk** (S1–S12, scored 0–54) — reflexive dynamics that 
 | S14 | Manipulable-oracle leverage | attack surface | cost to move the oracle < borrowable value |
 | S15 | Supply-subsidy mismatch (DePIN) | structure | service revenue / emissions value ≪ 1 |
 
-Detail + antidotes: [`anti-patterns.md`](skills/tokenomics-death-spiral-audit/references/anti-patterns.md) · the cost-of-corruption ledger (S13–S15): [`economic-security.md`](skills/tokenomics-death-spiral-audit/references/economic-security.md) · why survivors survived: [`survivors.md`](skills/tokenomics-death-spiral-audit/references/survivors.md)
+Detail + antidotes: [`anti-patterns.md`](skills/tokenomics-soundcheck/references/anti-patterns.md) · the cost-of-corruption ledger (S13–S15): [`economic-security.md`](skills/tokenomics-soundcheck/references/economic-security.md) · why survivors survived: [`survivors.md`](skills/tokenomics-soundcheck/references/survivors.md)
 
 **Economic-attack axis** — the code executing as written is no defense: Beanstalk (governance) and Mango (oracle) were *purchases*, not hacks. Back-scoring every known economic attack shows the profit inequality (`value extractable − cost to corrupt > 0`) was computable **before** each attack ([`data/security_panel.py`](data/security_panel.py)):
 
@@ -103,7 +103,7 @@ Detail + antidotes: [`anti-patterns.md`](skills/tokenomics-death-spiral-audit/re
 | Seigniorage absorbing barrier | to zero | reserve ratio R | `sim1` |
 | Unlock / inflation supply glut | slow bleed | unlock calendar | `sim3` |
 
-See [`game-models.md`](skills/tokenomics-death-spiral-audit/references/game-models.md).
+See [`game-models.md`](skills/tokenomics-soundcheck/references/game-models.md).
 
 ---
 
@@ -112,24 +112,24 @@ See [`game-models.md`](skills/tokenomics-death-spiral-audit/references/game-mode
 The skill pack follows the open [Agent Skills](https://agentskills.io) standard — the same folder works in **Claude Code, Codex CLI, Cursor, Gemini CLI, Copilot, Grok Build**, and 16+ other agents:
 
 ```
-/plugin marketplace add wusijian007/tokenomics-autopsy        # Claude Code (Grok reads it too)
-/plugin install tokenomics-death-spiral-audit@tokenomics-autopsy
+/plugin marketplace add wusijian007/tokenomics-soundcheck        # Claude Code (Grok reads it too)
+/plugin install tokenomics-soundcheck@tokenomics-soundcheck
 ```
 
-or copy `skills/tokenomics-death-spiral-audit/` into your agent's skills directory (`~/.claude/skills/`, `~/.grok/skills/`, …). Self-contained: 14 reference docs + stdlib-only runnable `scripts/`. All options incl. a zip build and a single-file prompt pack for no-skill platforms: **[INSTALL.md](INSTALL.md)**.
+or copy `skills/tokenomics-soundcheck/` into your agent's skills directory (`~/.claude/skills/`, `~/.grok/skills/`, …). Self-contained: 14 reference docs + stdlib-only runnable `scripts/`. All options incl. a zip build and a single-file prompt pack for no-skill platforms: **[INSTALL.md](INSTALL.md)**.
 
 ## Quick start
 
 **Screen a token in 15 minutes:** run the 8-question quick screen at the top of
-[`audit-protocol.md`](skills/tokenomics-death-spiral-audit/references/audit-protocol.md) → `PASS` / `CONCERNS` / `RED LINE`.
+[`audit-protocol.md`](skills/tokenomics-soundcheck/references/audit-protocol.md) → `PASS` / `CONCERNS` / `RED LINE`.
 
-**Full audit** (human or AI agent) — follow [`audit-protocol.md`](skills/tokenomics-death-spiral-audit/references/audit-protocol.md):
+**Full audit** (human or AI agent) — follow [`audit-protocol.md`](skills/tokenomics-soundcheck/references/audit-protocol.md):
 1. Collect inputs and draw the mechanism map (every price-dependent flow = a candidate λ>1 loop).
-2. Classify the game structure with [`game-models.md`](skills/tokenomics-death-spiral-audit/references/game-models.md).
-3. Measure and score the 12 rows of [`scorecard.md`](skills/tokenomics-death-spiral-audit/references/scorecard.md) (worked examples: Terra 37/54, DAI 1/54).
+2. Classify the game structure with [`game-models.md`](skills/tokenomics-soundcheck/references/game-models.md).
+3. Measure and score the 12 rows of [`scorecard.md`](skills/tokenomics-soundcheck/references/scorecard.md) (worked examples: Terra 37/54, DAI 1/54).
 4. Compute distance-to-threshold, stress-test with the simulations, write the report from the template.
 
-**Design a token** — run the 10-step [`design-playbook.md`](skills/tokenomics-death-spiral-audit/references/design-playbook.md) (necessity → demand anchor → value capture → supply → breakers → incentives-as-CAC → liquidity → monitoring → stress test → launch), pick your vertical in [`archetype-playbooks.md`](skills/tokenomics-death-spiral-audit/references/archetype-playbooks.md), and build from the 16 positive mechanisms in [`design-patterns.md`](skills/tokenomics-death-spiral-audit/references/design-patterns.md) — with deep dives on [liquidity](skills/tokenomics-death-spiral-audit/references/liquidity-engineering.md), [circular economies](skills/tokenomics-death-spiral-audit/references/circular-economy.md), and [incentives](skills/tokenomics-death-spiral-audit/references/incentive-audit.md).
+**Design a token** — run the 10-step [`design-playbook.md`](skills/tokenomics-soundcheck/references/design-playbook.md) (necessity → demand anchor → value capture → supply → breakers → incentives-as-CAC → liquidity → monitoring → stress test → launch), pick your vertical in [`archetype-playbooks.md`](skills/tokenomics-soundcheck/references/archetype-playbooks.md), and build from the 16 positive mechanisms in [`design-patterns.md`](skills/tokenomics-soundcheck/references/design-patterns.md) — with deep dives on [liquidity](skills/tokenomics-soundcheck/references/liquidity-engineering.md), [circular economies](skills/tokenomics-soundcheck/references/circular-economy.md), and [incentives](skills/tokenomics-soundcheck/references/incentive-audit.md).
 
 **Run it as a tool** — [`tools/`](tools/README.md) turns the checklist into code:
 ```bash
@@ -145,7 +145,7 @@ cd simulations && python -m pip install -r requirements.txt && python run_all.py
 cd ../data && python case_dataset.py && python scorecard_calibration.py && python security_panel.py && python scored_universe.py && python fit_weights.py
 ```
 
-**Use it as a Claude / Agent skill:** drop `skills/tokenomics-death-spiral-audit/` into your skills directory; it triggers automatically when you ask about token model design or sustainability.
+**Use it as a Claude / Agent skill:** drop `skills/tokenomics-soundcheck/` into your skills directory; it triggers automatically when you ask about token model design or sustainability.
 
 ---
 
@@ -158,7 +158,7 @@ cryptofail/
 ├── death-spiral-deep-analysis.md          # L2 deep analysis (EN, with charts) / 代币经济学死亡螺旋_深度分析与失败Skills.md (ZH)
 ├── skills/
 │   ├── README.md
-│   └── tokenomics-death-spiral-audit/     # installable Agent Skill (see INSTALL.md)
+│   └── tokenomics-soundcheck/     # installable Agent Skill (see INSTALL.md)
 │       ├── SKILL.md                       # L3 skill entry point (4 modes)
 │       ├── scripts/                       # bundled stdlib-only stress-runner + report generator
 │       └── references/{anti-patterns,game-models,scorecard,economic-security,

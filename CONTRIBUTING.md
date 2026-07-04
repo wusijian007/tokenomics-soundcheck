@@ -1,4 +1,4 @@
-# Contributing to tokenomics-autopsy
+# Contributing to tokenomics-soundcheck
 
 Thanks for helping make this a better design reference for the whole ecosystem.
 Contributions of all sizes are welcome — a one-line correction is as valuable as a
@@ -31,7 +31,7 @@ new game-theoretic model.
 - **Tools** — improvements to `tools/` (stress-runner spec coverage, report
   templates, wiring the registry monitor's data layer to live feeds). Note:
   `stress_runner.py` / `report_generator.py` + their examples are byte-mirrored
-  into `skills/tokenomics-death-spiral-audit/scripts/`; edit the `tools/` copy,
+  into `skills/tokenomics-soundcheck/scripts/`; edit the `tools/` copy,
   re-copy the mirror, and run `python tools/build_skill_dist.py` — it fails on
   drift, on any skill link that escapes the skill folder, and on frontmatter
   spec violations.
@@ -90,13 +90,13 @@ Please uphold:
   cd simulations && python -m pip install -r requirements.txt && python run_all.py
   ```
 - Update the simulation table in
-  `skills/tokenomics-death-spiral-audit/references/simulations.md`.
+  `skills/tokenomics-soundcheck/references/simulations.md`.
 
 ## Dev setup
 
 ```bash
-git clone https://github.com/wusijian007/tokenomics-autopsy
-cd tokenomics-autopsy/simulations
+git clone https://github.com/wusijian007/tokenomics-soundcheck
+cd tokenomics-soundcheck/simulations
 python -m pip install -r requirements.txt
 python run_all.py        # regenerate phase-transition charts
 ```

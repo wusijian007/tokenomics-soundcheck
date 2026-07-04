@@ -13,7 +13,7 @@ involved); each reads a small declarative input so results are reproducible.
 | [`build_skill_dist.py`](build_skill_dist.py) | — | Validates the installable skill (frontmatter spec, self-containment, `scripts/` drift vs `tools/`) and builds `dist/`: the skill zip + a single-file `PROMPT_PACK.md` for no-skill platforms. |
 
 > `stress_runner.py`, `report_generator.py` and their two example inputs are
-> **byte-mirrored** into `skills/tokenomics-death-spiral-audit/scripts/` so the
+> **byte-mirrored** into `skills/tokenomics-soundcheck/scripts/` so the
 > installed skill is self-contained. Edit the `tools/` copy (canonical), then
 > re-copy; `build_skill_dist.py` fails the build on any drift.
 

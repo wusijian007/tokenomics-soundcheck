@@ -245,7 +245,7 @@ def run_sims(s):
                        f"pro-rata run={pro:.0%}")
         except ImportError:
             out.append("sim4 skipped: simulations not found (clone the full repo "
-                       "https://github.com/wusijian007/tokenomics-autopsy to enable)")
+                       "https://github.com/wusijian007/tokenomics-soundcheck to enable)")
         except Exception as e:
             out.append(f"sim4 unavailable: {e}")
     tl = g(s, "governance.timelock_days", 0)
@@ -260,7 +260,7 @@ def run_sims(s):
                        f"attacker profit {p_now:+.2f} (vs {p_notl:+.2f} with no timelock)")
         except ImportError:
             out.append("sim6 skipped: simulations not found (clone the full repo "
-                       "https://github.com/wusijian007/tokenomics-autopsy to enable)")
+                       "https://github.com/wusijian007/tokenomics-soundcheck to enable)")
         except Exception as e:
             out.append(f"sim6 unavailable: {e}")
     return out

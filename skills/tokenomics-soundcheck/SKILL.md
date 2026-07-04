@@ -16,7 +16,7 @@ license: CC-BY-4.0
 metadata:
   version: "2.0.0"
   instrument: "spiral scorecard v2 (frozen 2026-07-02) + security panel"
-  homepage: "https://github.com/wusijian007/tokenomics-autopsy"
+  homepage: "https://github.com/wusijian007/tokenomics-soundcheck"
 ---
 
 # Tokenomics Soundcheck
@@ -36,7 +36,7 @@ threshold is crossed. This skill finds the threshold *before* it is crossed.
 > (stress-runner + report generator). The full research repo — 8 calibrated
 > simulations, case datasets, and the validation layer (holdout backtest +
 > frozen prospective registry) — is optional and lives at
-> https://github.com/wusijian007/tokenomics-autopsy.
+> https://github.com/wusijian007/tokenomics-soundcheck.
 
 ## The one idea that explains every collapse
 

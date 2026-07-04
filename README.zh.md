@@ -11,7 +11,7 @@ Design token economies that don't fuel their own collapse — and stress-test th
 [![Python 3.x](https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white)](simulations/)
 [![Cases analyzed](https://img.shields.io/badge/cases-50%2B-red.svg)](加密项目代币崩溃分析_2009-2026.md)
 [![Failure Skills](https://img.shields.io/badge/failure%20skills-15-purple.svg)](skills/)
-![GitHub stars](https://img.shields.io/github/stars/wusijian007/tokenomics-autopsy?style=social)
+![GitHub stars](https://img.shields.io/github/stars/wusijian007/tokenomics-soundcheck?style=social)
 
 > [English](README.md) | 🌐 **中文** · 许可:[CC BY 4.0](LICENSE)
 
@@ -74,7 +74,7 @@ Design token economies that don't fuel their own collapse — and stress-test th
 | S14 | 可操纵预言机杠杆 | 攻击面 | 移动预言机成本 < 可借出价值 |
 | S15 | 供给侧补贴错配(DePIN) | 结构 | 服务收入 / 排放价值 ≪ 1 |
 
-详解 + 解药:[`anti-patterns.md`](skills/tokenomics-death-spiral-audit/references/anti-patterns.md) · 腐化成本账本(S13–S15):[`economic-security.md`](skills/tokenomics-death-spiral-audit/references/economic-security.md) · 幸存者为何幸存(对照组):[`survivors.md`](skills/tokenomics-death-spiral-audit/references/survivors.md)
+详解 + 解药:[`anti-patterns.md`](skills/tokenomics-soundcheck/references/anti-patterns.md) · 腐化成本账本(S13–S15):[`economic-security.md`](skills/tokenomics-soundcheck/references/economic-security.md) · 幸存者为何幸存(对照组):[`survivors.md`](skills/tokenomics-soundcheck/references/survivors.md)
 
 **经济攻击轴** — "代码按写的执行"不是防御:Beanstalk(治理)和 Mango(预言机)都是**购买**而非黑客。对每个已知经济攻击回测可见,利润不等式(`可提取价值 − 腐化成本 > 0`)在攻击**之前**就可计算([`data/security_panel.py`](data/security_panel.py)):
 
@@ -103,7 +103,7 @@ Design token economies that don't fuel their own collapse — and stress-test th
 | 算稳吸收壁垒 | 归零 | 储备率 R | `sim1` |
 | 解锁/通胀供给 | 阴跌 | 解锁日历 | `sim3` |
 
-详见 [`game-models.md`](skills/tokenomics-death-spiral-audit/references/game-models.md)。
+详见 [`game-models.md`](skills/tokenomics-soundcheck/references/game-models.md)。
 
 ---
 
@@ -112,23 +112,23 @@ Design token economies that don't fuel their own collapse — and stress-test th
 skill pack 遵循开放的 [Agent Skills](https://agentskills.io) 标准——同一个文件夹可用于 **Claude Code、Codex CLI、Cursor、Gemini CLI、Copilot、Grok Build** 等 16+ 个 agent:
 
 ```
-/plugin marketplace add wusijian007/tokenomics-autopsy        # Claude Code(Grok 也会读取)
-/plugin install tokenomics-death-spiral-audit@tokenomics-autopsy
+/plugin marketplace add wusijian007/tokenomics-soundcheck        # Claude Code(Grok 也会读取)
+/plugin install tokenomics-soundcheck@tokenomics-soundcheck
 ```
 
-或把 `skills/tokenomics-death-spiral-audit/` 复制进 agent 的 skills 目录(`~/.claude/skills/`、`~/.grok/skills/` …)。完全自包含:14 份参考文档 + 零依赖可运行 `scripts/`。全部安装方式(含 zip 构建与无 skill 平台的单文件 prompt pack):**[INSTALL.md](INSTALL.md)**。
+或把 `skills/tokenomics-soundcheck/` 复制进 agent 的 skills 目录(`~/.claude/skills/`、`~/.grok/skills/` …)。完全自包含:14 份参考文档 + 零依赖可运行 `scripts/`。全部安装方式(含 zip 构建与无 skill 平台的单文件 prompt pack):**[INSTALL.md](INSTALL.md)**。
 
 ## 快速开始 / Quick start
 
-**15 分钟快筛**:用 [`audit-protocol.md`](skills/tokenomics-death-spiral-audit/references/audit-protocol.md) 开头的 8 问快筛 → `PASS` / `CONCERNS` / `RED LINE`。
+**15 分钟快筛**:用 [`audit-protocol.md`](skills/tokenomics-soundcheck/references/audit-protocol.md) 开头的 8 问快筛 → `PASS` / `CONCERNS` / `RED LINE`。
 
-**完整审计**(人类或 AI agent)— 按 [`audit-protocol.md`](skills/tokenomics-death-spiral-audit/references/audit-protocol.md) 走:
+**完整审计**(人类或 AI agent)— 按 [`audit-protocol.md`](skills/tokenomics-soundcheck/references/audit-protocol.md) 走:
 1. 收集输入,画机制图(每条依赖币价的流 = 候选 λ>1 回路)。
-2. 用 [`game-models.md`](skills/tokenomics-death-spiral-audit/references/game-models.md) 归类博弈结构。
-3. 按 [`scorecard.md`](skills/tokenomics-death-spiral-audit/references/scorecard.md) 的测量方法给 12 行打分(实例:Terra 37/54,DAI 1/54)。
+2. 用 [`game-models.md`](skills/tokenomics-soundcheck/references/game-models.md) 归类博弈结构。
+3. 按 [`scorecard.md`](skills/tokenomics-soundcheck/references/scorecard.md) 的测量方法给 12 行打分(实例:Terra 37/54,DAI 1/54)。
 4. 计算距阈值距离,用仿真压测,按模板出报告。
 
-**设计一个代币** — 走 10 步 [`design-playbook.md`](skills/tokenomics-death-spiral-audit/references/design-playbook.md)(必要性 → 需求锚 → 价值捕获 → 供给基准 → 熔断器 → 激励即获客成本 → 流动性 → 监控 → 压测 → 上线),在 [`archetype-playbooks.md`](skills/tokenomics-death-spiral-audit/references/archetype-playbooks.md) 里选你的赛道,用 [`design-patterns.md`](skills/tokenomics-death-spiral-audit/references/design-patterns.md) 的 16 个正向机制搭建——配 [流动性](skills/tokenomics-death-spiral-audit/references/liquidity-engineering.md)、[循环经济](skills/tokenomics-death-spiral-audit/references/circular-economy.md)、[激励](skills/tokenomics-death-spiral-audit/references/incentive-audit.md) 三份深潜文档。
+**设计一个代币** — 走 10 步 [`design-playbook.md`](skills/tokenomics-soundcheck/references/design-playbook.md)(必要性 → 需求锚 → 价值捕获 → 供给基准 → 熔断器 → 激励即获客成本 → 流动性 → 监控 → 压测 → 上线),在 [`archetype-playbooks.md`](skills/tokenomics-soundcheck/references/archetype-playbooks.md) 里选你的赛道,用 [`design-patterns.md`](skills/tokenomics-soundcheck/references/design-patterns.md) 的 16 个正向机制搭建——配 [流动性](skills/tokenomics-soundcheck/references/liquidity-engineering.md)、[循环经济](skills/tokenomics-soundcheck/references/circular-economy.md)、[激励](skills/tokenomics-soundcheck/references/incentive-audit.md) 三份深潜文档。
 
 **当作工具跑** — [`tools/`](tools/README.md) 把清单变成代码:
 ```bash
@@ -144,7 +144,7 @@ cd simulations && python -m pip install -r requirements.txt && python run_all.py
 cd ../data && python case_dataset.py && python scorecard_calibration.py && python security_panel.py && python scored_universe.py && python fit_weights.py
 ```
 
-**作为 Claude / Agent skill 使用:** 把 `skills/tokenomics-death-spiral-audit/` 放进 skills 目录,询问代币模型设计/可持续性时会自动触发。
+**作为 Claude / Agent skill 使用:** 把 `skills/tokenomics-soundcheck/` 放进 skills 目录,询问代币模型设计/可持续性时会自动触发。
 
 ---
 
@@ -156,7 +156,7 @@ cryptofail/
 ├── 代币经济学死亡螺旋_深度分析与失败Skills.md     # L2 深度分析(含仿真图)
 ├── skills/
 │   ├── README.md
-│   └── tokenomics-death-spiral-audit/
+│   └── tokenomics-soundcheck/
 │       ├── SKILL.md                           # L3 skill 入口(4 种模式;可安装,见 INSTALL.md)
 │       ├── scripts/                           # 捆绑的零依赖 stress-runner + 报告生成器
 │       └── references/{anti-patterns,game-models,scorecard,economic-security,

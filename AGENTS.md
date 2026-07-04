@@ -1,4 +1,4 @@
-# Agent instructions — tokenomics-autopsy
+# Agent instructions — tokenomics-soundcheck
 
 This repo is a **tokenomics evaluation and design toolkit**: forensic
 post-mortems of 50+ token collapses distilled into a measurable audit
@@ -7,7 +7,7 @@ investment advice**.
 
 ## If the user asks about token design, tokenomics risk, or due diligence
 
-Use the skill at `skills/tokenomics-death-spiral-audit/` — read `SKILL.md`
+Use the skill at `skills/tokenomics-soundcheck/` — read `SKILL.md`
 first (it routes to everything else):
 
 - **Quick screen / full audit** → `references/audit-protocol.md`, score with
@@ -17,10 +17,10 @@ first (it routes to everything else):
   `references/archetype-playbooks.md` (per-vertical), and
   `references/design-patterns.md` (16 positive mechanisms).
 - **Score a design spec programmatically** →
-  `python skills/tokenomics-death-spiral-audit/scripts/stress_runner.py <design.yaml>`
+  `python skills/tokenomics-soundcheck/scripts/stress_runner.py <design.yaml>`
   (stdlib-only; copy `scripts/design.example.yaml` as the template).
 - **Format a completed audit** →
-  `python skills/tokenomics-death-spiral-audit/scripts/report_generator.py <audit.json>`.
+  `python skills/tokenomics-soundcheck/scripts/report_generator.py <audit.json>`.
 
 ## Working in this repo
 

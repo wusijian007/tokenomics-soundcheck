@@ -1,4 +1,4 @@
-"""Generate the GitHub social-preview card (1280x640) for tokenomics-autopsy.
+"""Generate the GitHub social-preview card (1280x640) for tokenomics-soundcheck.
 
 The visual is a logarithmic spiral decaying to zero — a death-spiral metaphor —
 colored blue -> amber -> red as it collapses inward.
@@ -55,7 +55,7 @@ fig.text(0.047, 0.36,
          color="#7dd3fc", fontsize=15, fontweight="bold")
 fig.text(0.047, 0.26, "λ > 1  →  price becomes the fuel for its own collapse",
          color="#94a3b8", fontsize=14, style="italic")
-fig.text(0.047, 0.115, "github.com/wusijian007/tokenomics-autopsy   ·   CC BY 4.0",
+fig.text(0.047, 0.115, "github.com/wusijian007/tokenomics-soundcheck   ·   CC BY 4.0",
          color="#64748b", fontsize=13)
 
 out = Path(__file__).parent / "social-preview.png"

@@ -1,7 +1,7 @@
 """
 Build & validate the distributable skill (ROADMAP: skill packaging).
 
-Checks, then packages, skills/tokenomics-death-spiral-audit/ for installation
+Checks, then packages, skills/tokenomics-soundcheck/ for installation
 into any Agent-Skills-compatible agent (Claude Code, Codex CLI, Cursor,
 Gemini CLI, Grok Build, Copilot, ...):
 
@@ -12,7 +12,7 @@ Gemini CLI, Grok Build, Copilot, ...):
      must use absolute https:// URLs).
   3. DRIFT: the bundled scripts/ files are byte-identical to their canonical
      tools/ sources.
-  4. DIST: writes dist/tokenomics-death-spiral-audit-v<version>.zip
+  4. DIST: writes dist/tokenomics-soundcheck-v<version>.zip
      (the folder, installable by unzipping into an agent's skills directory)
      and dist/PROMPT_PACK.md (a single compiled file for platforms without a
      skills mechanism - paste into a system prompt / project instructions).
@@ -28,7 +28,7 @@ import zipfile
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
-SKILL = REPO / "skills" / "tokenomics-death-spiral-audit"
+SKILL = REPO / "skills" / "tokenomics-soundcheck"
 DIST = REPO / "dist"
 
 # canonical -> bundled byte-mirrors
@@ -119,13 +119,13 @@ def check_drift():
 
 def build_zip(version):
     DIST.mkdir(exist_ok=True)
-    out = DIST / f"tokenomics-death-spiral-audit-v{version}.zip"
+    out = DIST / f"tokenomics-soundcheck-v{version}.zip"
     with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:
         for f in sorted(SKILL.rglob("*")):
             generated = (f.parent.name == "scripts"
                          and f.name.endswith((".verdict.md", "-audit.md")))
             if f.is_file() and "__pycache__" not in f.parts and not generated:
-                z.write(f, Path("tokenomics-death-spiral-audit") / f.relative_to(SKILL))
+                z.write(f, Path("tokenomics-soundcheck") / f.relative_to(SKILL))
     kb = out.stat().st_size / 1024
     print(f"  [dist]  {out.name}  ({kb:.0f} KB)")
     return out
@@ -133,13 +133,13 @@ def build_zip(version):
 
 def build_prompt_pack(version):
     parts = [
-        "# Tokenomics Death-Spiral Audit — compiled prompt pack "
+        "# Tokenomics Soundcheck — compiled prompt pack "
         f"(skill v{version})\n\n"
-        "> Single-file compilation of the `tokenomics-death-spiral-audit` Agent\n"
+        "> Single-file compilation of the `tokenomics-soundcheck` Agent\n"
         "> Skill, for platforms without a skills mechanism (paste into a system\n"
         "> prompt / project instructions / knowledge file). Prefer installing\n"
         "> the actual skill where supported. Source + runnable tooling:\n"
-        "> https://github.com/wusijian007/tokenomics-autopsy\n"
+        "> https://github.com/wusijian007/tokenomics-soundcheck\n"
         "> Research / design reference, NOT investment advice.\n"
     ]
     for rel in PACK_ORDER:

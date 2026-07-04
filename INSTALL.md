@@ -1,6 +1,6 @@
 # Install the skill in your AI agent
 
-`skills/tokenomics-death-spiral-audit/` follows the open
+`skills/tokenomics-soundcheck/` follows the open
 [Agent Skills](https://agentskills.io) standard (`SKILL.md` + `references/` +
 `scripts/`), so the **same folder works across Claude Code, OpenAI Codex CLI,
 Cursor, Gemini CLI, GitHub Copilot, Grok Build, Amp, Goose, OpenCode, and any
@@ -13,8 +13,8 @@ knowledge base plus two stdlib-only runnable scripts; the wider research repo
 ## Option A — Claude Code plugin marketplace (recommended)
 
 ```
-/plugin marketplace add wusijian007/tokenomics-autopsy
-/plugin install tokenomics-death-spiral-audit@tokenomics-autopsy
+/plugin marketplace add wusijian007/tokenomics-soundcheck
+/plugin install tokenomics-soundcheck@tokenomics-soundcheck
 ```
 
 This installs the full repo as a plugin (so the bundled stress-runner also
@@ -23,7 +23,7 @@ automatically, so this path covers Grok too.
 
 ## Option B — copy the folder (any Agent-Skills agent)
 
-Copy `skills/tokenomics-death-spiral-audit/` (or unzip the release archive)
+Copy `skills/tokenomics-soundcheck/` (or unzip the release archive)
 into your agent's skills directory:
 
 | Agent | Personal | Per-project |
@@ -35,29 +35,29 @@ into your agent's skills directory:
 One-liner from a clone:
 
 ```bash
-git clone https://github.com/wusijian007/tokenomics-autopsy
-cp -r tokenomics-autopsy/skills/tokenomics-death-spiral-audit ~/.claude/skills/
+git clone https://github.com/wusijian007/tokenomics-soundcheck
+cp -r tokenomics-soundcheck/skills/tokenomics-soundcheck ~/.claude/skills/
 ```
 
-Grok Build also supports `grok skills install ./tokenomics-autopsy/skills/tokenomics-death-spiral-audit`.
+Grok Build also supports `grok skills install ./tokenomics-soundcheck/skills/tokenomics-soundcheck`.
 
 ## Option C — claude.ai / web agents (upload a zip)
 
 Download the prebuilt archive from the
-[latest release](https://github.com/wusijian007/tokenomics-autopsy/releases/latest)
+[latest release](https://github.com/wusijian007/tokenomics-soundcheck/releases/latest)
 (SHA-256 checksums in the release notes) — or build it yourself — and upload it
 where the product accepts skill/knowledge uploads (e.g., claude.ai → Settings →
 Capabilities → Skills):
 
 ```bash
-python tools/build_skill_dist.py     # -> dist/tokenomics-death-spiral-audit-v2.0.0.zip
+python tools/build_skill_dist.py     # -> dist/tokenomics-soundcheck-v2.0.0.zip
 ```
 
 ## Option D — platforms with no skills mechanism (prompt pack)
 
 `PROMPT_PACK.md` — the whole skill compiled into one file (~150 KB, ≈38k
 tokens) — is attached to the
-[latest release](https://github.com/wusijian007/tokenomics-autopsy/releases/latest)
+[latest release](https://github.com/wusijian007/tokenomics-soundcheck/releases/latest)
 (or build it with the same command). Paste it into a system prompt, project
 instructions, or a knowledge file (web Grok/ChatGPT/Gemini projects). Prefer a
 real skill install where supported: progressive disclosure loads only what each
@@ -81,14 +81,14 @@ A correct install triggers the skill: it should classify the mechanism
 and land near a "textbook death-spiral" verdict. For the programmatic path:
 
 ```bash
-cd <skills-dir>/tokenomics-death-spiral-audit/scripts
+cd <skills-dir>/tokenomics-soundcheck/scripts
 python stress_runner.py design.example.yaml     # expect: 2/54, PASS
 ```
 
 ## What's inside
 
 ```
-tokenomics-death-spiral-audit/
+tokenomics-soundcheck/
   SKILL.md              # entry point: 4 modes (quick screen / audit / design / stress-test)
   references/           # 14 docs: anti-patterns, scorecard, security panel, playbooks…
   scripts/              # stdlib-only: stress_runner.py, report_generator.py + examples
@@ -96,4 +96,4 @@ tokenomics-death-spiral-audit/
 
 Full research repo (8 simulations, 53-case scored universe, out-of-sample
 validation, frozen prospective registry):
-https://github.com/wusijian007/tokenomics-autopsy
+https://github.com/wusijian007/tokenomics-soundcheck

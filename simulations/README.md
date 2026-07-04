@@ -27,7 +27,7 @@ python sim1_algo_stable_absorbing_barrier.py
 > growth stall.
 
 `viz.py` holds the shared chart style. See
-`../skills/tokenomics-death-spiral-audit/references/simulations.md` for how to
+`../skills/tokenomics-soundcheck/references/simulations.md` for how to
 adapt each model to your own token design.
 
 > These are didactic models: they reproduce the *qualitative* phase transition and

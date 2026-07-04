@@ -6,7 +6,7 @@ venv/
 # tool-generated outputs (regenerated from specs / audit inputs)
 tools/*.verdict.md
 tools/*-audit.md
-skills/tokenomics-death-spiral-audit/scripts/*.verdict.md
-skills/tokenomics-death-spiral-audit/scripts/*-audit.md
+skills/tokenomics-soundcheck/scripts/*.verdict.md
+skills/tokenomics-soundcheck/scripts/*-audit.md
 # built skill distributables (regenerate: python tools/build_skill_dist.py)
 dist/

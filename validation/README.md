@@ -169,7 +169,15 @@ them is the authoritative timestamp; regenerating `holdout_backtest.csv` from
 the unmodified script reproduces its hash):
 
 ```
-FC427E58BA33BF3444482D8FE062BCAFE50EF13835CAA8E32868D57CD04CC28D  prospective-registry.md
+23A99FC6761A5254416C67D2D1749489D4BE7846C707554C6946BD75D4A2481B  prospective-registry.md
 8972022515BFA4CD87F687163CD40442A4621E1E3333D77EDB9DE12534C93B84  registry_scores.csv
 447658F5CC62FEA62AF31AED7344A0D740A03CEF4556A1870FFA07DCF9DD7BE8  holdout_backtest.csv
 ```
+
+> `prospective-registry.md` was re-hashed on **2026-07-04** after the project was
+> renamed to **Tokenomics Soundcheck**: the only edit to it was a mechanical
+> path-reference update plus a dated Amendment-log entry — **no prediction,
+> score, flag, or band changed** (its Amendment log documents this, and the
+> git diff against commit `a87e923` proves it). The original frozen hash was
+> `FC427E58BA33BF3444482D8FE062BCAFE50EF13835CAA8E32868D57CD04CC28D`. The other
+> two artifacts are byte-identical to the freeze.

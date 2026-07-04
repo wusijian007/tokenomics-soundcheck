@@ -1,4 +1,4 @@
-# Skill Pack — Tokenomics Death-Spiral Audit
+# Skill Pack — Tokenomics Soundcheck
 
 An open-source skill distilled from forensic analysis of 50+ landmark token
 collapses and **calibrated against a control group of survivors**. It helps you
@@ -7,7 +7,7 @@ tokenomics**.
 
 ## Contents
 ```
-tokenomics-death-spiral-audit/
+tokenomics-soundcheck/
   SKILL.md                      # entry point: core idea, 4 modes, quick-reference, red lines
   scripts/                      # bundled stdlib-only tools: stress_runner.py, report_generator.py + examples
   references/
@@ -32,8 +32,8 @@ The skill follows the open [Agent Skills](https://agentskills.io) standard and
 is fully **self-contained** — it works in Claude Code, Codex CLI, Cursor,
 Gemini CLI, Copilot, Grok Build, and any other spec-compatible agent. Install
 via the Claude Code plugin marketplace
-(`/plugin marketplace add wusijian007/tokenomics-autopsy`) or by copying
-`tokenomics-death-spiral-audit/` into your agent's skills directory
+(`/plugin marketplace add wusijian007/tokenomics-soundcheck`) or by copying
+`tokenomics-soundcheck/` into your agent's skills directory
 (`~/.claude/skills/`, `~/.grok/skills/`, …) — all options in the repo's
 [INSTALL.md](../INSTALL.md). It triggers when you ask about token model design,
 sustainability, stablecoin/staking/GameFi/points/restaking mechanics, unlock

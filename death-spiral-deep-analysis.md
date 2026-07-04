@@ -251,7 +251,7 @@ when insiders' cost basis ≈ 0 and unlocks continue ⇒ the clearing point is d
 
 ## 4.6 Companion simulations (reproducible, calibrated to real data)
 
-The four charts below are produced by the Python models in `simulations/` (`python run_all.py`). Each model is calibrated to real collapse parameters and used to **visualize the phase transition itself** — to prove the collapse is endogenous to the mechanism (λ>1) and reachable from realistic parameters, not an exogenous accident. Full notes: [skills/.../references/simulations.md](skills/tokenomics-death-spiral-audit/references/simulations.md).
+The four charts below are produced by the Python models in `simulations/` (`python run_all.py`). Each model is calibrated to real collapse parameters and used to **visualize the phase transition itself** — to prove the collapse is endogenous to the mechanism (λ>1) and reachable from realistic parameters, not an exogenous accident. Full notes: [skills/.../references/simulations.md](skills/tokenomics-soundcheck/references/simulations.md).
 
 **① Algo-stable absorbing barrier (Terra, calibrated R₀≈2.2)**
 ![Algo-stable absorbing barrier](simulations/charts/sim1_absorbing_barrier.png)
@@ -376,7 +376,7 @@ Raw totals overlap in the elevated band out-of-sample — but the engine → str
 
 ## 5b. The economic-attack axis (Skills #13–#15) — when the code works and the mechanism is mispriced
 
-Skills #1–#12 describe *reflexive dynamics*: systems that amplify their own decline. There is an orthogonal failure axis — **discrete economic attacks** where the contract executes exactly as written and the mechanism itself was underpriced. Beanstalk, Mango, and the Steem takeover were not hacks; they were *purchases*. The unifying tool is a **cost-of-corruption ledger**: for each control surface, `profit = value extractable − cost to corrupt`. Wherever that is positive under adversarial financing (flash loans, borrowed stake, rented votes), price the surface as already exploited. This is Budish's consensus-security bound generalized to governance, oracles, and liquidity. Full framework, instances, and antidotes: [economic-security.md](skills/tokenomics-death-spiral-audit/references/economic-security.md).
+Skills #1–#12 describe *reflexive dynamics*: systems that amplify their own decline. There is an orthogonal failure axis — **discrete economic attacks** where the contract executes exactly as written and the mechanism itself was underpriced. Beanstalk, Mango, and the Steem takeover were not hacks; they were *purchases*. The unifying tool is a **cost-of-corruption ledger**: for each control surface, `profit = value extractable − cost to corrupt`. Wherever that is positive under adversarial financing (flash loans, borrowed stake, rented votes), price the surface as already exploited. This is Budish's consensus-security bound generalized to governance, oracles, and liquidity. Full framework, instances, and antidotes: [economic-security.md](skills/tokenomics-soundcheck/references/economic-security.md).
 
 ### Skill #13 — Captureable Governance (attack surface)
 - **Core**: assembling a deciding quorum costs less than the value the quorum controls (treasury, mint rights, emissions keys).
@@ -430,7 +430,7 @@ Turn chapter 5's Skills into a table you can score at design / due-diligence tim
 
 **How to use**: for any item scoring 2, go straight back to that Skill's "antidote" and redesign; a hit on a ×3-weight item = a red line, highest priority.
 
-> **Operational v2**: the skill pack's [`scorecard.md`](skills/tokenomics-death-spiral-audit/references/scorecard.md) upgrades this to a 12-row / max-54 **measurable** instrument — each row ships a formula, data sources, and 0/1/2 thresholds — back-scored on 18 historical cases (10 collapses vs 8 stress survivors): collapses score 12–37, survivors 1–11, and no survivor triggers an engine red line (`data/scorecard_calibration.py` + separation chart). It is additionally validated **out-of-sample** on 15 leakage-audited held-out cases (decision rule 15/15 correct) and by a frozen prospective registry with falsifiable predictions ([`validation/`](validation/README.md)). The standardized audit procedure is in [`audit-protocol.md`](skills/tokenomics-death-spiral-audit/references/audit-protocol.md); the survivor control group in [`survivors.md`](skills/tokenomics-death-spiral-audit/references/survivors.md).
+> **Operational v2**: the skill pack's [`scorecard.md`](skills/tokenomics-soundcheck/references/scorecard.md) upgrades this to a 12-row / max-54 **measurable** instrument — each row ships a formula, data sources, and 0/1/2 thresholds — back-scored on 18 historical cases (10 collapses vs 8 stress survivors): collapses score 12–37, survivors 1–11, and no survivor triggers an engine red line (`data/scorecard_calibration.py` + separation chart). It is additionally validated **out-of-sample** on 15 leakage-audited held-out cases (decision rule 15/15 correct) and by a frozen prospective registry with falsifiable predictions ([`validation/`](validation/README.md)). The standardized audit procedure is in [`audit-protocol.md`](skills/tokenomics-soundcheck/references/audit-protocol.md); the survivor control group in [`survivors.md`](skills/tokenomics-soundcheck/references/survivors.md).
 
 ---
 
@@ -454,7 +454,7 @@ Flip the 15 Skills into "what you should do" and you get the design axioms of he
 14. **Size leverage to manipulation cost**: LTV, caps, and listings derive from depth-over-oracle-window math, never from asset-class vibes (§5b, #14).
 15. **Gate supply subsidies on demand**: pay for utilization, not capacity; publish revenue/emissions; mint ≤ k·burn once a BME exists (§5b, #15).
 
-> The constructive expansion of these axioms — a full 10-step design process with parameter benchmarks and a launch checklist — is the skill pack's [`design-playbook.md`](skills/tokenomics-death-spiral-audit/references/design-playbook.md).
+> The constructive expansion of these axioms — a full 10-step design process with parameter benchmarks and a launch checklist — is the skill pack's [`design-playbook.md`](skills/tokenomics-soundcheck/references/design-playbook.md).
 
 ---
 

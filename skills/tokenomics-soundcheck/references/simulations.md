@@ -7,7 +7,7 @@ survivable reward economy). Use them to (a) build intuition, (b) fit a critical
 parameter to a specific design, or (c) generate charts for a report.
 
 > **Where they live**: the simulations are part of the full research repo
-> ([simulations/](https://github.com/wusijian007/tokenomics-autopsy/tree/main/simulations)),
+> ([simulations/](https://github.com/wusijian007/tokenomics-soundcheck/tree/main/simulations)),
 > not the installed skill folder — clone the repo to run them (numpy +
 > matplotlib). The skill's bundled `scripts/stress_runner.py` needs no clone:
 > it is stdlib-only, auto-detects the repo's simulations when present, and

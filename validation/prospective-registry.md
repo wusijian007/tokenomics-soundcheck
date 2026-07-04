@@ -7,7 +7,7 @@ anchored via OpenTimestamps). Outcome definitions, grading rules, and
 integrity rules: [`README.md`](README.md).
 
 Scores use the measurement procedures in
-`skills/tokenomics-death-spiral-audit/references/scorecard.md` (12 rows,
+`skills/tokenomics-soundcheck/references/scorecard.md` (12 rows,
 max 54; engine ×3 / structure ×2 / amplifier ×1), computed from public data
 available at the freeze date. Rows resting on unverifiable data are scored
 pessimistically per protocol. **This is research, not investment advice** —
@@ -114,4 +114,12 @@ collateral); shape risk: deleveraging cascade (S12), not slow bleed.
 
 *(append-only; dated; never modify frozen sections above)*
 
-- —
+- 2026-07-04 — Project/skill renamed to **Tokenomics Soundcheck** (repo, skill
+  folder, and plugin id migrated from the former `tokenomics-autopsy` /
+  `tokenomics-death-spiral-audit`). The only edit to this file was a mechanical
+  path-reference update in the preamble (the `scorecard.md` pointer); **no
+  prediction, score, flag, band, freeze date, or success criterion was
+  changed.** The freeze-record hash for this file in `validation/README.md` was
+  re-recorded to match; the original frozen content remains verifiable in git
+  history (commit `a87e923` and earlier), which is the authoritative
+  tamper-evidence.

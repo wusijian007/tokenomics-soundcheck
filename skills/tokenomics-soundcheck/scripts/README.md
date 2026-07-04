@@ -17,7 +17,7 @@ If the full research repo is present (these scripts detect it automatically),
 `stress_runner.py` also runs the matching calibrated simulations (sim4 bank-run,
 sim6 governance-capture); standalone installs simply skip them with a note.
 Full repo — 8 simulations, case datasets, the validation layer:
-https://github.com/wusijian007/tokenomics-autopsy
+https://github.com/wusijian007/tokenomics-soundcheck
 
 These files are byte-mirrors of the repo's `tools/` versions; the repo's
 `tools/build_skill_dist.py` fails the build if they drift.
